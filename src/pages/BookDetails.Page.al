@@ -12,11 +12,20 @@ page 50101 "Book Details"
         {
             group(GroupName)
             {
-                field(GroupName)
-                {
-                    ApplicationArea = All;
-                }
                 
+                
+                field(BookID; Rec.BookID)
+                {
+                    ToolTip = 'Specifies the value of the BookID field.';
+                }
+                field(Genre; Rec.Genre)
+                {
+                    ToolTip = 'Specifies the value of the Genre field.';
+                }
+                field(Author; Rec.Author)
+                {
+                    ToolTip = 'Specifies the value of the Author field.';
+                }
             }
         }
     }

@@ -10,13 +10,21 @@ page 50102 "Add Sequel"
     {
         area(Content)
         {
-            group(GroupName)
+            group("GroupName")
             {
-                field(GroupName)
+                
+                field(Author; Rec.Author)
                 {
-                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Author field.';
                 }
-
+                field(Series; Rec.Series)
+                {
+                    ToolTip = 'Specifies the value of the Series field.';
+                }
+                field(Publisher; Rec.Publisher)
+                {
+                    ToolTip = 'Specifies the value of the Publisher field.';
+                }
             }
         }
     }

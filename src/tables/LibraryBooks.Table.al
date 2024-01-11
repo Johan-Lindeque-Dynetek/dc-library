@@ -13,7 +13,7 @@ table 50100 "Library Books"
         }
         field(2; Title; Text[100])
         {
-            Caption = 'MyField';
+            Caption = 'Title';
             DataClassification = CustomerContent;
         }
         field(3; Author; Text[100])

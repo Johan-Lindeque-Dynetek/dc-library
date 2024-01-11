@@ -1,7 +1,7 @@
 page 50104 "Book Transaction"
 {
     Caption = 'Book Transaction';
-    PageType = Card;
+    PageType = List;
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = "Books Transactions";
@@ -10,13 +10,30 @@ page 50104 "Book Transaction"
     {
         area(Content)
         {
-            group(GroupName)
+            group("GroupName")
             {
-                field(GroupName)
-                {
-                    ApplicationArea = All;
-                }
                 
+               
+                field(TransactionID; Rec.TransactionID)
+                {
+                    ToolTip = 'Specifies the value of the TransactionID field.';
+                }
+                field(BookID; Rec.BookID)
+                {
+                    ToolTip = 'Specifies the value of the BookID field.';
+                }
+                field("Customer No."; Rec."Customer No.")
+                {
+                    ToolTip = 'Specifies the value of the Customer No. field.';
+                }
+                field("Transactions Type"; Rec."Transactions Type")
+                {
+                    ToolTip = 'Specifies the value of the Transactions Type field.';
+                }
+                field("Transactions Date"; Rec."Transactions Date")
+                {
+                    ToolTip = 'Specifies the value of the Transactions Date field.';
+                }
             }
         }
     }
