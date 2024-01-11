@@ -16,7 +16,7 @@ table 50100 "Library Books"
             Caption = 'Title';
             DataClassification = CustomerContent;
         }
-        field(3; Author; Text[100])
+        field(3; Author; Text[50])
         {
             Caption = 'Author';
             DataClassification = CustomerContent;
