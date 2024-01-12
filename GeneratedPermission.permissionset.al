@@ -8,5 +8,6 @@ permissionset 50100 GeneratedPermission
         page "Add Sequel"=X,
         page "Book Details"=X,
         page "Book Transaction"=X,
-        page Library=X;
+        page Library=X,
+        page "Library Customer"=X;
 }

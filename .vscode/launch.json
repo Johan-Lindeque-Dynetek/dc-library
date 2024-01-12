@@ -1,4 +1,5 @@
 {
+    
     "version": "0.2.0",
     "configurations": [
         {
@@ -9,7 +10,7 @@
             "server": "http://bcserver",
             "serverInstance": "BC",
             "authentication": "UserPassword",
-            "startupObjectId": 22,
+            "startupObjectId": 50100,
             "breakOnError": "All",
             "breakOnRecordWrite": "None",
             "launchBrowser": true,
@@ -20,5 +21,6 @@
             "tenant": "default",
             "usePublicURLFromServer": true
         }
+        
     ]
 }

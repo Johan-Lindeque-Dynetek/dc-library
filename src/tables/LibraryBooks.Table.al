@@ -10,13 +10,15 @@ table 50100 "Library Books"
         {
             Caption = 'BookID';
             DataClassification = CustomerContent;
+            AutoIncrement = true;
+            Editable = false;
         }
         field(2; Title; Text[100])
         {
             Caption = 'Title';
             DataClassification = CustomerContent;
         }
-        field(3; Author; Text[50])
+        field(3; Author; Text[100])
         {
             Caption = 'Author';
             DataClassification = CustomerContent;
@@ -41,7 +43,7 @@ table 50100 "Library Books"
             Caption = 'Book Price';
             DataClassification = CustomerContent;
         }
-        field(8; "Publication Date"; DateTime)
+        field(8; "Publication Date"; Date)
         {
             Caption = 'Publication Date';
             DataClassification = CustomerContent;
@@ -66,6 +68,12 @@ table 50100 "Library Books"
             Caption = 'Sequel';
             DataClassification = CustomerContent;
         }
+        field(13; "Rented Amount"; Integer)
+        {
+            Caption = 'Rented Amount';
+            DataClassification = CustomerContent;
+        }
+        
          
         
     }

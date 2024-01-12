@@ -9,6 +9,8 @@ table 50101 "Books Transactions"
         {
             Caption = 'TransactionID';
             DataClassification = CustomerContent;
+            AutoIncrement = true;
+            Editable = false;
         }
         field(2; BookID; Integer)
         {
