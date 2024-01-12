@@ -110,13 +110,26 @@ page 50101 "Book Details"
     {
         area(Processing)
         {
-            action(ActionName)
+            action(RentOut)
             {
                 ApplicationArea = All;
+                Caption = 'Rent Out';
+                Image = GeneralLedger;
+                Promoted = true;
+                PromotedCategory = Process;
                 
                 trigger OnAction()
-                begin
+                var
+                    BookTransaction: Page "Book Transaction";
+                     BooksTransactions: Record "Books Transactions";
+
                     
+
+                begin
+                    // BookTransaction.SetRecord();
+                    BooksTransactions.RentOutBook(Rec);
+
+                    BookTransaction.Run();
                 end;
             }
         }

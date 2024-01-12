@@ -15,7 +15,7 @@ page 50100 "Library"
             {
                 repeater("Books")
                 {
-                    
+
 
                     field(Title; Rec.Title)
                     {
@@ -49,7 +49,7 @@ page 50100 "Library"
                     {
                         ToolTip = 'Specifies the value of the Series field.';
                     }
-                    
+
                 }
 
             }
@@ -58,8 +58,10 @@ page 50100 "Library"
 
     actions
     {
+
         area(Processing)
         {
+
             // This action displays the top 3 rented books.
             action(Top3rented)
             {
@@ -88,18 +90,17 @@ page 50100 "Library"
                     Books.Ascending(false);
 
                     // Store the top 3 books in the array
-                    if Books.FindSet() then 
-                    repeat
-                        Top3Rented[Count] := Books;
-                        Count += 1;
-                        if Count = 3 then
-                            break;
-                    until Books.Next() = 0;
+                    if Books.FindSet() then
+                        repeat
+                            Top3Rented[Count] := Books;
+                            Count += 1;
+                            if Count > 3 then
+                                break;
+                        until Books.Next() = 0;
 
                     // Show top 3 books in popup
                     Count := 0;
-                    for Count := 1 to 3 do
-                    begin
+                    for Count := 1 to 3 do begin
                         MessageText += 'Title' + Top3Rented[Count].Title + ' , Amount: ' + Format(Top3Rented[Count]."Rented Amount") + '\';
 
                     end;
@@ -114,23 +115,25 @@ page 50100 "Library"
                 Caption = 'Recent books.';
                 ToolTip = 'Shows the books from the last 2 years.';
                 Image = GeneralLedger;
-                
+
                 trigger OnAction()
                 var
-                    Books: Record "Library Books";
+                    // Books: Record "Library Books";
                     Date2YearsBack: Date;
                     CurrentWorkDate: Date;
                 begin
                     CurrentWorkDate := WorkDate();
                     Date2YearsBack := CurrentWorkDate - 730;
-                    books.SetRange("Publication Date", Date2YearsBack, CurrentWorkDate);
+
+                    Rec.SetRange("Publication Date", Date2YearsBack, CurrentWorkDate);
+
+                    // books.SetRange("Publication Date", Date2YearsBack, CurrentWorkDate);
                     // CurrPage.SetRecord(Books);
                     // CurrPage.Update(false);
-                    
 
                 end;
             }
         }
-        
+
     }
 }
