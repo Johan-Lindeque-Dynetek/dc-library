@@ -14,7 +14,7 @@ page 50104 "Book Transaction"
             {
             //    repeater("Transactions")
             //   {
-                                    //  Transaction Details.
+                //  Transaction Details.
                 field(TransactionID; Rec.TransactionID)
                 {
                     ToolTip = 'Specifies the value of the TransactionID field.';
@@ -65,28 +65,28 @@ page 50104 "Book Transaction"
         }
     }
     
-    actions
-    {
-        area(Processing)
-        {
-            action(PageOpen)
-            {
-                ApplicationArea = All;
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action(PageOpen)
+    //         {
+    //             ApplicationArea = All;
                 
-                trigger OnAction()
-                var
+    //             trigger OnAction()
+    //             var
                     
-                begin
-                    // BooksTransactions.BookDetailsForTransaction( );
-                    // BooksTransactions.DisplayBookAndCustomerDetails();
+    //             begin
+    //                 // BooksTransactions.BookDetailsForTransaction( );
+    //                 // BooksTransactions.DisplayBookAndCustomerDetails();
                     
 
 
                     
-                end;
-            }
-        }
-    }
+    //             end;
+    //         }
+    //     }
+    // }
 
      
 

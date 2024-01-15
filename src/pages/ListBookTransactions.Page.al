@@ -5,7 +5,7 @@ page 50106 "List Book Transactions"
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = "Books Transactions";
-    
+
     layout
     {
         area(Content)
@@ -48,24 +48,10 @@ page 50106 "List Book Transactions"
                         ToolTip = 'Specifies the value of the Customer Name field.';
                     }
                 }
-                
+
             }
         }
     }
-    
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-                ApplicationArea = All;
-                
-                trigger OnAction()
-                begin
-                    
-                end;
-            }
-        }
-    }
+
+
 }

@@ -13,6 +13,7 @@ page 50101 "Book Details"
             group(Display)
             {
                 Caption = 'Book details:';
+                
                 field(BookID; Rec.BookID)
                 {
                     ApplicationArea = All;
@@ -24,6 +25,7 @@ page 50101 "Book Details"
                     ApplicationArea = All;
                     Caption = 'Title.';
                     ToolTip = 'Specifies the value of the MyField field.';
+                    
                 }
                 field(Author; Rec.Author)
                 {
@@ -105,6 +107,8 @@ page 50101 "Book Details"
             }
         }
     }
+
+    
     
     actions
     {
@@ -120,15 +124,13 @@ page 50101 "Book Details"
                 
                 trigger OnAction()
                 var
-                    BookTransactionPage: Page "Book Transaction";
-                     BooksTransactionsTable: Record "Books Transactions";
+                    
+                    BooksTransactionsTable: Record "Books Transactions";
 
                 begin
-                    //Get Selected Book Rec to use in other Page.
+                    
                     BooksTransactionsTable.GetSelectedBookRec(Rec);
-                    // Open BookTransaction page.
-                    // BookTransactionPage.SetRecord(Rec);
-                    // BookTransactionPage.Run();
+                    
                 end;
             }
         }

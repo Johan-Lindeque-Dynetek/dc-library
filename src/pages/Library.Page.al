@@ -101,7 +101,7 @@ page 50100 "Library"
                     // Show top 3 books in popup
                     Count := 0;
                     for Count := 1 to 3 do begin
-                        MessageText += 'Title' + Top3Rented[Count].Title + ' , Amount: ' + Format(Top3Rented[Count]."Rented Amount") + '\';
+                        MessageText += 'Title: ' + Top3Rented[Count].Title + ' , Amount: ' + Format(Top3Rented[Count]."Rented Amount") + '\';
 
                     end;
                     Message(MessageText);

@@ -93,6 +93,7 @@ table 50100 "Library Books"
         if LibraryBooks.Get(BookID) then begin
             if NewStatus = 'Rent' then begin
             LibraryBooks."Rent Status" := 'Rented';
+            LibraryBooks."Rented Amount" := LibraryBooks."Rented Amount" +1;
             LibraryBooks.Modify();
                 
             end;
