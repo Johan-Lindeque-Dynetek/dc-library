@@ -12,13 +12,23 @@ page 50104 "Book Transaction"
         {
             group("GroupName")
             {
-                
-               
+            //    repeater("Transactions")
+            //   {
+                                    //  Transaction Details.
                 field(TransactionID; Rec.TransactionID)
                 {
                     ToolTip = 'Specifies the value of the TransactionID field.';
                 }
+                field("Transactions Type"; Rec."Transactions Type")
+                {
+                    ToolTip = 'Specifies the value of the Transactions Type field.';
+                }
+                field("Transactions Date"; Rec."Transactions Date")
+                {
+                    ToolTip = 'Specifies the value of the Transactions Date field.';
+                }
 
+                // Book informaation
                 field(BookID; Rec.BookID)
                 {
                     ToolTip = 'Specifies the value of the BookID field.';
@@ -32,6 +42,7 @@ page 50104 "Book Transaction"
                     ToolTip = 'Specifies the value of the Author field.';
                 }
 
+                // Customer information
                 field("Customer No."; Rec."Customer No.")
                 {
                     ToolTip = 'Specifies the value of the Customer No. field.';
@@ -40,15 +51,13 @@ page 50104 "Book Transaction"
                 {
                     ToolTip = 'Specifies the value of the Customer Name field.';
                 }
+                    
+            //   }
+                
 
-                field("Transactions Type"; Rec."Transactions Type")
-                {
-                    ToolTip = 'Specifies the value of the Transactions Type field.';
-                }
-                field("Transactions Date"; Rec."Transactions Date")
-                {
-                    ToolTip = 'Specifies the value of the Transactions Date field.';
-                }
+
+                
+                
 
                 
                 
@@ -60,30 +69,26 @@ page 50104 "Book Transaction"
     {
         area(Processing)
         {
-            action(ActionName)
+            action(PageOpen)
             {
                 ApplicationArea = All;
                 
                 trigger OnAction()
+                var
+                    
                 begin
+                    // BooksTransactions.BookDetailsForTransaction( );
+                    // BooksTransactions.DisplayBookAndCustomerDetails();
+                    
+
+
                     
                 end;
             }
         }
     }
 
-     procedure MyProcedure(LibraryBooks: Record "Library Books")
-     var 
-        BookTitle: text[50];
-        NewRec: record  "Books Transactions";
-    begin
-        BookTitle := LibraryBooks.Title;
-
-        NewRec.Init();
-        NewRec.Title := BookTitle;
-        NewRec.Insert();
-        
-    end;
+     
 
     
 }

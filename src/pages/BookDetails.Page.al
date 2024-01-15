@@ -110,26 +110,25 @@ page 50101 "Book Details"
     {
         area(Processing)
         {
-            action(RentOut)
+            action("Rent or Return")
             {
                 ApplicationArea = All;
-                Caption = 'Rent Out';
+                Caption = 'Rent or Return a book';
                 Image = GeneralLedger;
                 Promoted = true;
                 PromotedCategory = Process;
                 
                 trigger OnAction()
                 var
-                    BookTransaction: Page "Book Transaction";
-                     BooksTransactions: Record "Books Transactions";
-
-                    
+                    BookTransactionPage: Page "Book Transaction";
+                     BooksTransactionsTable: Record "Books Transactions";
 
                 begin
-                    // BookTransaction.SetRecord();
-                    BooksTransactions.RentOutBook(Rec);
-
-                    BookTransaction.Run();
+                    //Get Selected Book Rec to use in other Page.
+                    BooksTransactionsTable.GetSelectedBookRec(Rec);
+                    // Open BookTransaction page.
+                    // BookTransactionPage.SetRecord(Rec);
+                    // BookTransactionPage.Run();
                 end;
             }
         }

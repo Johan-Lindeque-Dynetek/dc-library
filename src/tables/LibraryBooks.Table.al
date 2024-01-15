@@ -18,7 +18,7 @@ table 50100 "Library Books"
             Caption = 'Title';
             DataClassification = CustomerContent;
         }
-        field(3; Author; Text[100])
+        field(3; Author; Text[50])
         {
             Caption = 'Author';
             DataClassification = CustomerContent;
@@ -85,5 +85,26 @@ table 50100 "Library Books"
             Clustered = true;
         }
     }
+
+     procedure UpdateBookStatus(BookID : Integer; NewStatus: Text[20]) 
+     var
+        LibraryBooks: Record "Library Books";
+    begin
+        if LibraryBooks.Get(BookID) then begin
+            if NewStatus = 'Rent' then begin
+            LibraryBooks."Rent Status" := 'Rented';
+            LibraryBooks.Modify();
+                
+            end;
+            if NewStatus = 'Return' then begin
+            LibraryBooks."Rent Status" := 'Available';
+            LibraryBooks.Modify();
+                
+            end;
+        
+            
+        end;
+        
+    end;
     
 }

@@ -35,23 +35,53 @@ table 50101 "Books Transactions"
             Caption = 'Customer No.';
             DataClassification = CustomerContent;
             TableRelation = Customer."No.";
+
+            trigger OnValidate()
+            var
+                Cust: Record Customer;
+            begin
+              
+                if Cust.Get("Customer No.") then begin
+                    "Customer Name" := Cust.Name;
+                    "Customer Email" := Cust."E-Mail";
+
+                end;
+
+                    
+            end;
         }
-        field(6; "Customer Name"; Text[50])
+        field(6; "Customer Name"; Text[100])
         {
             Caption = 'Customer Name';
             DataClassification = CustomerContent;
             TableRelation = Customer.Name;
+            
         }
-        field(7; "Transactions Type"; Text[50])
+        field(7; "Transactions Type"; Enum "Transaction Type")
         {
             Caption = 'Transactions Type';
             DataClassification = CustomerContent;
+
+            trigger OnValidate();
+            var
+                LibraryBooks: Record "Library Books";
+               TransactionTypeText: Text[20];
+            begin
+                TransactionTypeText := Format("Transactions Type");
+                LibraryBooks.UpdateBookStatus(BookID, TransactionTypeText);
+            end;
         }
         field(8; "Transactions Date" ; DateTime)
         {
             Caption = 'Transactions Date';
             DataClassification = CustomerContent;
         }
+        field(9; "Customer Email"; Text[80])
+        {
+            Caption = 'MyField';
+            DataClassification = ToBeClassified;
+        }
+        
         
         
         
@@ -74,18 +104,69 @@ table 50101 "Books Transactions"
         }
     }
 
-     procedure RentOutBook(LibraryBooks: Record "Library Books")
-     var
-     BookTransaction: Page "Book Transaction";
-        book: Text[100];
-        
+    // Procedure to get record that was selected.
+     procedure GetSelectedBookRec(LibraryBooks: Record "Library Books")  
     begin
         
-        BookTransaction.MyProcedure(LibraryBooks);
+        GetBookDetailsForTransaction(LibraryBooks);
     end;
 
 
+    procedure GetBookDetailsForTransaction(LibraryBooks: Record "Library Books")
+     var 
+        BookTransaction: record  "Books Transactions";
+        BookTransactionPage: Page "Book Transaction";
+        
+    begin
+        TheBookID := LibraryBooks.BookID;
+        TheBookTitle := LibraryBooks.Title;
+        TheBookAuthor := LibraryBooks.Author;
+        BookTransaction.Init();
+        BookTransaction.BookID := TheBookID;
+        BookTransaction.Title := TheBookTitle;
+        BookTransaction.Author := TheBookAuthor;
+
+
+
+        BookTransaction.Insert();
+        BookTransactionPage.SetRecord(BookTransaction);
+        BookTransactionPage.Run();
+
+        // DisplayBookAndCustomerDetails();
+        
+        
+    end;
+
+    procedure CreateTransaction() 
     var
+        
+        BookTransaction: Record "Books Transactions";
+    begin
+        //  Initialize new record in Book Transaction table.
+        BookTransaction.Init();
+        BookTransaction.BookID := TheBookID;
+        BookTransaction.Title := TheBookTitle;
+        BookTransaction.Author := TheBookAuthor;
+
+
+
+        BookTransaction.Insert();
+        
+       
+    end;
+    
+    
+    
+    var
+        // Store the book information
+        TheBookID: Integer;
+        TheBookTitle: Text[100];
+        TheBookAuthor: Text[50];
+
+        // Store the customer information
+        TheCustNO: Integer;
+        TheCustName: Text[50];
+
 
 
 }
