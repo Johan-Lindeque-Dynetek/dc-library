@@ -69,9 +69,8 @@ page 50100 "Library"
                 Caption = 'Top 3 books rented.';
                 ToolTip = 'Shows the Top 3 books rented.';
                 Image = GeneralLedger;
-                // PromotedCategory = Category4;
-                // Promoted = true;
-                // PromotedIsBig = true;
+                Promoted = true;
+                PromotedCategory = Process;
 
                 trigger OnAction()
                 var
@@ -115,6 +114,8 @@ page 50100 "Library"
                 Caption = 'Recent books.';
                 ToolTip = 'Shows the books from the last 2 years.';
                 Image = GeneralLedger;
+                Promoted = true;
+                PromotedCategory = Process;
 
                 trigger OnAction()
                 var
@@ -126,11 +127,26 @@ page 50100 "Library"
                     Date2YearsBack := CurrentWorkDate - 730;
 
                     Rec.SetRange("Publication Date", Date2YearsBack, CurrentWorkDate);
+                end;
+            }
 
-                    // books.SetRange("Publication Date", Date2YearsBack, CurrentWorkDate);
-                    // CurrPage.SetRecord(Books);
-                    // CurrPage.Update(false);
+            action("Rent or Return")
+            {
+                ApplicationArea = All;
+                Caption = 'Rent or Return a book';
+                Image = GeneralLedger;
+                Promoted = true;
+                PromotedCategory = Process;
+                
+                trigger OnAction()
+                var
+                    
+                    BooksTransactionsTable: Record "Books Transactions";
 
+                begin
+                    
+                    BooksTransactionsTable.GetSelectedBookRec(Rec);
+                    
                 end;
             }
         }
