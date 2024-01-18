@@ -1,0 +1,49 @@
+﻿{
+    "id":  "686d7617-2df9-4391-89ef-d99ab2502089",
+    "name":  "DC Libray",
+    "publisher":  "Dynetek (Pty) Ltd",
+    "version":  "1.0.20240117.1428",
+    "brief":  "",
+    "description":  "",
+    "platform":  "1.0.0.0",
+    "application":  "23.0.0.0",
+    "runtime":  "12.0",
+    "logo":  "",
+    "url":  "",
+    "EULA":  "",
+    "privacyStatement":  "",
+    "help":  "",
+    "target":  "Cloud",
+    "screenshots":  [
+
+                    ],
+    "dependencies":  [
+
+                     ],
+    "idRanges":  [
+                     {
+                         "from":  50100,
+                         "to":  50149
+                     }
+                 ],
+    "features":  [
+                     "NoImplicitWith"
+                 ],
+    "resourceExposurePolicy":  {
+                                   "allowDebugging":  true,
+                                   "allowDownloadingSource":  true,
+                                   "includeSourceInSymbolFile":  true
+                               },
+    "source":  {
+
+               },
+    "build":  {
+                  "by":  "AL Language Extension,12.5.914975"
+              },
+    "internalsVisibleTo":  [
+
+                           ],
+    "keyVaultUrls":  [
+
+                     ]
+}
