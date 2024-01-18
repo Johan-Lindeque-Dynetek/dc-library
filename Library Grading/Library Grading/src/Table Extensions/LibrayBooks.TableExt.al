@@ -7,7 +7,7 @@ tableextension 50150 LibraryBooks extends "Library Books"
             Caption = 'Return Date"';
             DataClassification = CustomerContent;
         }
-        field(50160; "Grade"; Text[1])
+        field(50160; "Grade"; Enum "Book Grade")
         {
             Caption = 'Grade';
             DataClassification = CustomerContent;
