@@ -86,9 +86,31 @@ pageextension 50150 "Library Grading Ext" extends Library
                 end;
             }
 
+            action(CheckOverdue)
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    LibraryBooks: Record "Library Books";
+                begin
+                    LibraryBooks.SetRange("Return Date", Today());
+                    if LibraryBooks.FindSet() then begin
+                        repeat
+                            LibraryBooks.Validate("Rent Status", 'OVERDUE');
+
+                        until LibraryBooks.Next() = 0;
+                    end;
+                    Rec.SetRange("Rent Status", 'OVERDUE');
+                    
+                end;
+            }
+
 
 
 
         }
     }
+
+    
 }

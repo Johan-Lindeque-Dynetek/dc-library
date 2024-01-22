@@ -157,7 +157,7 @@ table 50100 "Library Books"
     // Make sure rent/return action can only run if books are available or rented.
     procedure CheckBookRentability(): Boolean
     begin
-        if (Rec."Rent Status" = 'Rented') or (Rec."Rent Status" = 'Available') then
+        if (Rec."Rent Status" = 'Rented') or (Rec."Rent Status" = 'Available') or (Rec."Rent Status" = 'OVERDUE') then
             exit(true);
 
         exit(false);
