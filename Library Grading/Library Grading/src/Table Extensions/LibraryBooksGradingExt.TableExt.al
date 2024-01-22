@@ -4,7 +4,7 @@ tableextension 50150 "Library Books Grading Ext" extends "Library Books"
     {
         field(50150; "Return Date"; Date)
         {
-            Caption = 'Return Date"';
+            Caption = 'Return Date';
             DataClassification = CustomerContent;
         }
         field(50160; "Grade"; Enum "Book Grade")
@@ -64,16 +64,8 @@ tableextension 50150 "Library Books Grading Ext" extends "Library Books"
     end;
 
 
-    // Make sure rent/return action can only run if books are available or rented.
-    procedure CheckBookRentability(): Boolean;
-    begin
-        if (Rec."Rent Status" = 'Rented') or (Rec."Rent Status" = 'Available') then
-            exit(true);
+    
 
-        exit(false);
 
-    end;
-
-    // try rent status a enum maak
 
 }

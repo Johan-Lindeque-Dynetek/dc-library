@@ -34,7 +34,7 @@ page 50151 "Book Grading"
                     Editable = false;
 
                 }
-                field("Grade"; Rec.Grade)
+                field("Grade"; currBookGrade)
                 {
                     ApplicationArea = All;
                     Caption = 'Previous Grade';
@@ -42,7 +42,7 @@ page 50151 "Book Grading"
                     Editable = false;
 
                 }
-                field("Grade Description"; Rec."Grade Description")
+                field("Grade Description"; currBookGradeDesc)
                 {
                     ApplicationArea = All;
                     Caption = 'Previous Grade description';
@@ -72,6 +72,16 @@ page 50151 "Book Grading"
             }
         }
     }
+    trigger OnOpenPage();
+    begin
+        currBookGrade := Rec.Grade;
+        currBookGradeDesc := Rec."Grade Description"; 
+        
+    end;
+
+    var
+        currBookGrade: Enum "Book Grade" ;
+        currBookGradeDesc: Text[200];
     
    
 }
