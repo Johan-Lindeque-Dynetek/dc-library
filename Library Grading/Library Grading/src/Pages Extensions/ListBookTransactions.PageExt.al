@@ -1,10 +1,10 @@
-pageextension 50151 "Book Transaction" extends "Book Transaction"
+pageextension 50152 "List Book Tran Grading Ext" extends "List Book Transactions"
 {
     layout
     {
-        addafter("Customer Name")
+        addafter(Author)
         {
-            
+
             field("Return Date"; Rec."Return Date")
             {
                 ApplicationArea = All;
@@ -14,6 +14,11 @@ pageextension 50151 "Book Transaction" extends "Book Transaction"
             {
                 ApplicationArea = All;
                 ToolTip = 'Specifies the value of the Grade field.';
+            }
+            field("Grade Description"; Rec."Grade Description")
+            {
+                ApplicationArea = All;
+                ToolTip = 'Specifies the value of the Grade Description field.';
             }
         }
         

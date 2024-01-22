@@ -1,4 +1,4 @@
-tableextension 50150 LibraryBooks extends "Library Books"
+tableextension 50150 "Library Books Grading Ext" extends "Library Books"
 {
     fields
     {
@@ -11,19 +11,69 @@ tableextension 50150 LibraryBooks extends "Library Books"
         {
             Caption = 'Grade';
             DataClassification = CustomerContent;
+
+            trigger OnValidate();
+            var
+
+            begin
+                if Rec.Grade = Enum::"Book Grade"::D then
+                    Rec."Rent Status" := 'Need repair.';
+
+            end;
         }
         field(50170; "Grade Description"; Text[200])
         {
             Caption = 'Grade Description';
             DataClassification = CustomerContent;
         }
-        field(50180; "Weeded"; Boolean)
+        field(50180; "Weeded Status"; Enum WeedingBooks)
         {
             Caption = 'Weeded';
             DataClassification = CustomerContent;
+
+            trigger OnValidate();
+            begin
+                Rec.WeedingOutBooks();
+            end;
         }
-        
-        
     }
+
+    //  Procedure to filter all the books and show the books tha needs repair.
+    procedure FilterBooksForRepair()
+    begin
+        Rec.SetRange("Rent Status", 'Need repair.');
+
+    end;
+
+    // Procedure weed out books and set "Rent Status" to Archived and cant be rented anymore.
+    procedure WeedingOutBooks()
+    begin
+        case Rec."Weeded Status" of
+            WeedingBooks::Archived:
+                begin
+                    Rec.Validate("Rent Status", 'Archived');
+                    Message('The book ' + Rec.Title + ' was added to the Archive and can not be rented anymore.');
+                end;
+            WeedingBooks::Available:
+                begin
+                    Rec.Validate("Rent Status", 'Available');
+                    Message('The book ' + Rec.Title + ' was made available to rent again.');
+                end;
     
+        end;
+    end;
+
+
+    // Make sure rent/return action can only run if books are available or rented.
+    procedure CheckBookRentability(): Boolean;
+    begin
+        if (Rec."Rent Status" = 'Rented') or (Rec."Rent Status" = 'Available') then
+            exit(true);
+
+        exit(false);
+
+    end;
+
+    // try rent status a enum maak
+
 }
