@@ -37,14 +37,6 @@ page 50100 "Library"
                     {
                         ToolTip = 'Specifies the value of the Publisher field.';
                     }
-                    // field("Publication Date"; Rec."Publication Date")
-                    // {
-                    //     ToolTip = 'Specifies the value of the Publication Date field.';
-                    // }
-                    // field(Pages; Rec.Pages)
-                    // {
-                    //     ToolTip = 'Specifies the value of the Pages field.';
-                    // }
                     field(Series; Rec.Series)
                     {
                         ToolTip = 'Specifies the value of the Series field.';
@@ -137,7 +129,9 @@ page 50100 "Library"
                 var
                     BooksTransactionsTable: Record "Books Transactions";
                 begin
-                    BooksTransactionsTable.NewBookTransaction(Rec);
+                    if Rec.CheckBookRentability() then 
+                        BooksTransactionsTable.NewBookTransaction(Rec);
+                    Message('Book cant be rented out!');
                 end;
             }
         }
