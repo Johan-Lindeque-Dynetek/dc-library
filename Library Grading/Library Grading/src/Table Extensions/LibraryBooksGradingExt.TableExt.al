@@ -16,9 +16,7 @@ tableextension 50150 "Library Books Grading Ext" extends "Library Books"
             var
 
             begin
-                if Rec.Grade = Enum::"Book Grade"::D then
-                    Rec."Rent Status" := 'Need repair.';
-
+                Rec.SetBookRepairStatus();
             end;
         }
         field(50170; "Grade Description"; Text[200])
@@ -31,10 +29,10 @@ tableextension 50150 "Library Books Grading Ext" extends "Library Books"
             Caption = 'Weeded';
             DataClassification = CustomerContent;
 
-            trigger OnValidate();
-            begin
-                Rec.WeedingOutBooks();
-            end;
+            // trigger OnValidate();
+            // begin
+            //     Rec.WeedingOutBooks();
+            // end;
         }
     }
 
@@ -59,12 +57,35 @@ tableextension 50150 "Library Books Grading Ext" extends "Library Books"
                     Rec.Validate("Rent Status", 'Available');
                     Message('The book ' + Rec.Title + ' was made available to rent again.');
                 end;
-    
+
         end;
+
+    end;
+
+    procedure SetBookRepairStatus()
+    begin
+        if Rec.Grade = Enum::"Book Grade"::D then
+            Rec."Rent Status" := 'Need repair.';
+
+    end;
+
+    procedure CheckOverdueBooks()
+    var
+        LibraryBooks: Record "Library Books";
+    begin
+        LibraryBooks.SetRange("Return Date", Today());
+        if LibraryBooks.FindSet() then begin
+            repeat
+                LibraryBooks.Validate("Rent Status", 'OVERDUE');
+
+            until LibraryBooks.Next() = 0;
+        end;
+        Rec.SetRange("Rent Status", 'OVERDUE');
+
     end;
 
 
-    
+
 
 
 

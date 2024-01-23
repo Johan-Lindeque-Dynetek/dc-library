@@ -31,10 +31,8 @@ tableextension 50151 "Books Transaction Grading Ext" extends "Books Transactions
 
     }
 
-    /// <summary>
-    /// Procedure to update the books Grade.
-    /// </summary>
-    /// <param name="BooksTransactions"></param>
+
+    // Procedure to update the books Grade.
     procedure UpdateBookGrade(BooksTransactions: Record "Books Transactions")
     var
         LibraryBooks: Record "Library Books";
@@ -48,9 +46,8 @@ tableextension 50151 "Books Transaction Grading Ext" extends "Books Transactions
 
     end;
 
-    /// <summary>
-    /// Calculate return date for  a book when rented
-    /// </summary>
+
+    // Calculate return date for  a book when rented
     procedure CalcReturnDate()
     var
         LibraryBooks: Record "Library Books";

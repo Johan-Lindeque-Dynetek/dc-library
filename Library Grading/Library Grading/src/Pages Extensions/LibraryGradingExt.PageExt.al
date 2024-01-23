@@ -40,6 +40,8 @@ pageextension 50150 "Library Grading Ext" extends Library
                 Caption = 'Update grade of book';
                 ToolTip = 'Change or give a book a grading based on its condition. Options areA,B,C,D with A being the highest and D the lowest rating';
                 Image = "1099Form";
+                // Promoted = true;
+                // PromotedCategory = Process;
 
                 trigger OnAction()
                 var
@@ -51,21 +53,6 @@ pageextension 50150 "Library Grading Ext" extends Library
                     BookGrading.Run();
 
 
-                end;
-            }
-
-            action("BooksForRepair")
-            {
-                ApplicationArea = All;
-                Caption = 'Books for Repair.';
-                ToolTip = 'FIlter and show all the books that currently needs repaired. These books cant be rented out.';
-                Image = ServicePriceAdjustment;
-
-
-
-                trigger OnAction()
-                begin
-                    Rec.FilterBooksForRepair();
                 end;
             }
 
@@ -85,7 +72,24 @@ pageextension 50150 "Library Grading Ext" extends Library
 
                 end;
             }
+        }
 
+        addafter("Recently Published")
+        {
+            action("BooksForRepair")
+            {
+                ApplicationArea = All;
+                Caption = 'Books for Repair.';
+                ToolTip = 'FIlter and show all the books that currently needs repaired. These books cant be rented out.';
+                Image = ServicePriceAdjustment;
+
+
+
+                trigger OnAction()
+                begin
+                    Rec.FilterBooksForRepair();
+                end;
+            }
             action(CheckOverdue)
             {
                 ApplicationArea = All;
@@ -102,15 +106,11 @@ pageextension 50150 "Library Grading Ext" extends Library
                         until LibraryBooks.Next() = 0;
                     end;
                     Rec.SetRange("Rent Status", 'OVERDUE');
-                    
+
                 end;
             }
-
-
-
-
         }
     }
 
-    
+
 }

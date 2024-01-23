@@ -1,7 +1,7 @@
 page 50104 "Book Transaction"
 {
     Caption = 'Confirm and create a new transaction for rent/return of a book.';
-    PageType = ConfirmationDialog;
+    PageType = Card;
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = "Books Transactions";
