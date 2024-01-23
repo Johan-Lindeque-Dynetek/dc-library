@@ -25,4 +25,18 @@ pageextension 50151 "Book Trans Grading Ext" extends "Book Transaction"
         }
     }
 
+    trigger OnOpenPage();
+    var 
+        LibraryBooks: Record "Library Books";
+    begin
+        if Rec."Transactions Type" = Enum::"Transaction Type"::Rent then begin
+            if LibraryBooks.Get(Rec.BookID) then begin
+                Rec.Grade := LibraryBooks.Grade;
+                Rec."Grade Description" := LibraryBooks."Grade Description";
+            end;
+
+        end;
+        
+    end;
+
 }

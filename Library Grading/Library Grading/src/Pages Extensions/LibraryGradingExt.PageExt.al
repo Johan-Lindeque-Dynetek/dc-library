@@ -93,6 +93,9 @@ pageextension 50150 "Library Grading Ext" extends Library
             action(CheckOverdue)
             {
                 ApplicationArea = All;
+                Caption = 'Books Overdue.';
+                ToolTip = 'FIlter and show all the books that currently are overdue for return.';
+                Image = ServicePriceAdjustment;
 
                 trigger OnAction()
                 var

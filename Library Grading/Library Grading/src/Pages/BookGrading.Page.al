@@ -1,7 +1,7 @@
 page 50151 "Book Grading"
 {
     Caption = 'Book Grading';
-    PageType = Card;
+    PageType = StandardDialog;
     ApplicationArea = All;
     UsageCategory = None;
     SourceTable = "Library Books";
@@ -92,6 +92,7 @@ page 50151 "Book Grading"
     trigger OnClosePage();
     begin
         Rec.WeedingOutBooks();
+        
     end;
 
     var
