@@ -3,7 +3,7 @@ page 50101 "Book Details"
     Caption = 'Book Details';
     PageType = Card;
     ApplicationArea = All;
-    UsageCategory = Administration;
+    UsageCategory = none;
     SourceTable = "Library Books";
 
     layout

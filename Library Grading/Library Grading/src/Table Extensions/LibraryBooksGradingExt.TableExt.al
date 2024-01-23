@@ -72,15 +72,19 @@ tableextension 50150 "Library Books Grading Ext" extends "Library Books"
     procedure CheckOverdueBooks()
     var
         LibraryBooks: Record "Library Books";
+        Library: Page Library;
     begin
-        LibraryBooks.SetRange("Return Date", Today());
+        LibraryBooks.SetRange("Return Date", 0D, WorkDate());
+        LibraryBooks.SetRange("Rent Status", 'Rented');
+
         if LibraryBooks.FindSet() then begin
             repeat
                 LibraryBooks.Validate("Rent Status", 'OVERDUE');
+                LibraryBooks.Modify();
 
             until LibraryBooks.Next() = 0;
         end;
-        Rec.SetRange("Rent Status", 'OVERDUE');
+        
 
     end;
 
