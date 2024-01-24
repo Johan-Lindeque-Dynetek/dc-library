@@ -120,6 +120,7 @@ page 50101 "Book Details"
             {
                 ApplicationArea = All;
                 Caption = 'Rent or Return a book';
+                ToolTip = 'Rent or return a book from the library list.';
                 Image = BOMRegisters;
                 Promoted = true;
                 PromotedCategory = Process;
@@ -137,6 +138,7 @@ page 50101 "Book Details"
             {
                 ApplicationArea = All;
                 Caption = 'Add a sequel to the selected book';
+                ToolTip = 'Add a sequel to the selected book from the library list.';
                 Image = Add;
                 Promoted = true;
                 PromotedCategory = Process;
