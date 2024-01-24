@@ -9,7 +9,7 @@
             "server": "http://bcserver",
             "serverInstance": "BC",
             "authentication": "UserPassword",
-            "startupObjectId": 50100,
+            "startupObjectId": 22,
             "breakOnError": "All",
             "breakOnRecordWrite": "None",
             "launchBrowser": true,
@@ -20,7 +20,5 @@
             "tenant": "default",
             "usePublicURLFromServer": true
         }
-       
-        
     ]
 }

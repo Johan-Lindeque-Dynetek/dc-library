@@ -3,7 +3,7 @@ page 50103 "Library Customer"
     Caption = 'Library Customer';
     PageType = List;
     ApplicationArea = All;
-    UsageCategory = Administration;
+    UsageCategory = Lists;
     SourceTable = Customer;
 
     layout

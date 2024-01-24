@@ -1,9 +1,9 @@
 page 50102 "Add Sequel"
 {
     Caption = 'Add Sequel';
-    PageType = ConfirmationDialog;
+    PageType = StandardDialog;
     ApplicationArea = All;
-    UsageCategory = Administration;
+    UsageCategory = none;
     SourceTable = "Library Books";
 
     layout

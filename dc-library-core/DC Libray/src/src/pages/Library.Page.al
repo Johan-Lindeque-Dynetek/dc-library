@@ -37,14 +37,6 @@ page 50100 "Library"
                     {
                         ToolTip = 'Specifies the value of the Publisher field.';
                     }
-                    // field("Publication Date"; Rec."Publication Date")
-                    // {
-                    //     ToolTip = 'Specifies the value of the Publication Date field.';
-                    // }
-                    // field(Pages; Rec.Pages)
-                    // {
-                    //     ToolTip = 'Specifies the value of the Pages field.';
-                    // }
                     field(Series; Rec.Series)
                     {
                         ToolTip = 'Specifies the value of the Series field.';
@@ -58,9 +50,34 @@ page 50100 "Library"
 
     actions
     {
+        area(Promoted)
+        {
+            group("Filters")
+            {
+                Caption = 'Filters';
+
+
+                actionref("Top 3 books"; "Top 3")
+                {
+
+                }
+                actionref("Recently Publications"; "Recently Published")
+                {
+
+                }
+            }
+            group("Services")
+            {
+                actionref("Rent or Return"; "Rent/Return")
+                {
+
+                }
+            }
+        }
 
         area(Processing)
         {
+
 
             // This action displays the top 3 rented books.
             action("Top 3")
@@ -69,8 +86,9 @@ page 50100 "Library"
                 Caption = 'Top 3 books rented.';
                 ToolTip = 'Shows the Top 3 books rented.';
                 Image = AnalysisView;
-                Promoted = true;
-                PromotedCategory = Process;
+                // Promoted = true;
+                // PromotedCategory = Process;
+
 
                 trigger OnAction()
                 var
@@ -95,7 +113,7 @@ page 50100 "Library"
 
                     // Show top 3 books in popup
                     Count := 0;
-                    for Count := 1 to 3 do 
+                    for Count := 1 to 3 do
                         MessageText += 'Title: ' + Top3Rented[Count].Title + ' , Amount: ' + Format(Top3Rented[Count]."Rented Amount") + '\';
 
                     Message(MessageText);
@@ -109,8 +127,8 @@ page 50100 "Library"
                 Caption = 'Recent books.';
                 ToolTip = 'Filter to show the books bublished in the last 2 years.';
                 Image = DueDate;
-                Promoted = true;
-                PromotedCategory = Process;
+                // Promoted = true;
+                // PromotedCategory = Process;
 
                 trigger OnAction()
                 var
@@ -130,16 +148,21 @@ page 50100 "Library"
                 Caption = 'Rent or Return a book';
                 ToolTip = 'Action for renting or reurning the selected book.';
                 Image = BOMRegisters;
-                Promoted = true;
-                PromotedCategory = Process;
+                // Promoted = true;
+                // PromotedCategory = Process;
 
                 trigger OnAction()
                 var
                     BooksTransactionsTable: Record "Books Transactions";
                 begin
-                    BooksTransactionsTable.NewBookTransaction(Rec);
+                    if Rec.CheckBookRentability() then
+                        BooksTransactionsTable.NewBookTransaction(Rec);
+                    Message('Book cant be rented out!');
                 end;
             }
+
+
+
         }
 
     }

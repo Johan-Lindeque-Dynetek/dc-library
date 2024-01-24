@@ -3,7 +3,7 @@ page 50106 "List Book Transactions"
     Caption = 'List of Book Transactions';
     PageType = List;
     ApplicationArea = All;
-    UsageCategory = Administration;
+    UsageCategory = Lists;
     SourceTable = "Books Transactions";
 
     layout

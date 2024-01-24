@@ -120,6 +120,16 @@ table 50101 "Books Transactions"
                 end;
             'Available':
                     BookTransaction.Validate("Transactions Type", "Transactions Type"::Rent);
+            'OVERDUE':
+                begin
+                    BookTransaction.Validate("Transactions Type", "Transactions Type"::Return);
+
+                    PreviousBookTransaction.SetRange(BookID, LibraryBooks.BookID);
+                    if PreviousBookTransaction.FindLast() then begin
+                        BookTransaction.Validate("Customer No.", PreviousBookTransaction."Customer No.");
+                        BookTransaction.Validate("Customer Name", PreviousBookTransaction."Customer Name");
+                    end;
+                end;
         end;
 
         BookTransaction.Insert();
