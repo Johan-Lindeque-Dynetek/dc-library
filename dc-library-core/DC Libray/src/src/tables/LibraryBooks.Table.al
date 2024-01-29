@@ -6,30 +6,36 @@ table 50100 "Library Books"
 
     fields
     {
-        field(1; BookID; Integer)
+        field(1; BookID; Code[20])
         {
             Caption = 'BookID';
             DataClassification = CustomerContent;
-            AutoIncrement = true;
+            // AutoIncrement = true;
             Editable = false;
+        }
+        field(14; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            Editable = false;
+            TableRelation = "No. Series";
         }
         field(2; Title; Text[100])
         {
             Caption = 'Title';
             DataClassification = CustomerContent;
-            
+
             // Update "Sequel" field for the book for which the add sequle action was run.
             trigger OnValidate();
             var
                 LibraryBooks: Record "Library Books";
             begin
 
-                LibraryBooks.SetRange(Title,rec.Prequel);
-                if  LibraryBooks.FindFirst() then begin
+                LibraryBooks.SetRange(Title, rec.Prequel);
+                if LibraryBooks.FindFirst() then begin
                     LibraryBooks.Validate(Sequel, rec.Title);
                     LibraryBooks.Modify();
                 end;
-                
+
             end;
 
         }
@@ -103,9 +109,18 @@ table 50100 "Library Books"
         }
     }
 
+    trigger OnInsert()
+    var
+        LibraryGeneralSetup: Record "Library General Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+    begin
+        LibraryGeneralSetup.Get();
+        LibraryGeneralSetup.TestField("Library Books Nos.");
+        Rec.BookID := NoSeriesMgt.GetNextNo(LibraryGeneralSetup."Library Books Nos.", WorkDate(), true);
+    end;
 
     // Procedure to update a books "Rent Status" depending on if it was rent/returned.
-    procedure UpdateBookStatus(BookID: Integer; NewStatus: Text[20])
+    procedure UpdateBookStatus(BookID: Code[20]; NewStatus: Text[20])
     var
         LibraryBooks: Record "Library Books";
     begin
@@ -127,7 +142,7 @@ table 50100 "Library Books"
 
     end;
 
-  
+
     // Procedure to add a sequel to the book selected.
     procedure AddSequelBook(LibraryBooks: Record "Library Books")
     var
@@ -136,7 +151,7 @@ table 50100 "Library Books"
     begin
         LibraryBookSequel.Init();
 
-        LibraryBookSequel.Validate(BookID);
+        LibraryBookSequel.Validate(BookID,'');
         LibraryBookSequel.Validate(Prequel, LibraryBooks.Title);
         LibraryBookSequel.Validate(Series, LibraryBooks.Series);
         LibraryBookSequel.Validate(Author, LibraryBooks.Author);
@@ -161,7 +176,7 @@ table 50100 "Library Books"
             exit(true);
 
         exit(false);
-        
+
     end;
 
 }
