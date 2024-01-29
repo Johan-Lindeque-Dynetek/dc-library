@@ -111,7 +111,9 @@ table 50100 "Library Books"
 
     trigger OnInsert()
     begin
-        AddNewNos();
+        if Rec.BookID = '' then
+            Rec.AddNewNos();
+        
     end;
 
     procedure AddNewNos()
@@ -119,11 +121,12 @@ table 50100 "Library Books"
         LibraryGeneralSetup: Record "Library General Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
     begin
+
         LibraryGeneralSetup.Get();
         LibraryGeneralSetup.TestField("Library Books Nos.");
         Rec.BookID := NoSeriesMgt.GetNextNo(LibraryGeneralSetup."Library Books Nos.", WorkDate(), true);
 
-        
+
     end;
 
     // Procedure to update a books "Rent Status" depending on if it was rent/returned.
@@ -158,7 +161,7 @@ table 50100 "Library Books"
     begin
         LibraryBookSequel.Init();
 
-        
+        LibraryBookSequel.AddNewNos();
         LibraryBookSequel.Validate(Prequel, LibraryBooks.Title);
         LibraryBookSequel.Validate(Series, LibraryBooks.Series);
         LibraryBookSequel.Validate(Author, LibraryBooks.Author);
@@ -171,7 +174,6 @@ table 50100 "Library Books"
 
 
         LibraryBookSequel.Insert();
-        AddNewNos();
         AddSequel.SetRecord(LibraryBookSequel);
         AddSequel.Run();
 
