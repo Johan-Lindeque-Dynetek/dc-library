@@ -6,7 +6,7 @@
             "type": "al",
             "request": "launch",
             "environmentType": "OnPrem",
-            "server": "http://bcserver",
+            "server": "http://dream-covers",
             "serverInstance": "BC",
             "authentication": "UserPassword",
             "startupObjectId": 50100,
@@ -20,6 +20,8 @@
             "tenant": "default",
             "usePublicURLFromServer": true
         }
+        
+        
        
         
     ]
