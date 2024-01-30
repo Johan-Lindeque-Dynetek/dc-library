@@ -51,10 +51,16 @@ tableextension 50151 "Books Transaction Grading Ext" extends "Books Transactions
     procedure CalcReturnDate()
     var
         LibraryBooks: Record "Library Books";
+        LibraryGeneralSetup: Record "Library General Setup";
         ReturnDate: Date;
+        GetSetupRentPeriod: Integer;
     begin
         if Rec."Transactions Type" = Enum::"Transaction Type"::Rent then begin
-            ReturnDate := Rec."Transactions Date" + 5;
+            LibraryGeneralSetup.Get();
+            LibraryGeneralSetup.TestField("Rent Period");
+            GetSetupRentPeriod := LibraryGeneralSetup."Rent Period";
+
+            ReturnDate := Rec."Transactions Date" + GetSetupRentPeriod;
             Rec.Validate("Return Date", ReturnDate);
 
             if LibraryBooks.Get(Rec.BookID) then begin
