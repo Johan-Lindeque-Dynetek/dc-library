@@ -52,7 +52,7 @@ page 50100 "Library"
     {
         area(Promoted)
         {
-            group("Filters")
+            group("Library Filters")
             {
                 Caption = 'Filters';
 
@@ -66,7 +66,7 @@ page 50100 "Library"
 
                 }
             }
-            group("Services")
+            group("Library Services")
             {
                 actionref("Rent or Return"; "Rent/Return")
                 {

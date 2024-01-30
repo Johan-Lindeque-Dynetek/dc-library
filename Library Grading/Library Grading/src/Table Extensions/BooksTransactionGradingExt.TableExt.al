@@ -56,6 +56,7 @@ tableextension 50151 "Books Transaction Grading Ext" extends "Books Transactions
         GetSetupRentPeriod: Integer;
     begin
         if Rec."Transactions Type" = Enum::"Transaction Type"::Rent then begin
+            // Get max rent period from setup.
             LibraryGeneralSetup.Get();
             LibraryGeneralSetup.TestField("Rent Period");
             GetSetupRentPeriod := LibraryGeneralSetup."Rent Period";
