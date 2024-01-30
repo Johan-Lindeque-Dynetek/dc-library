@@ -122,11 +122,9 @@ table 50100 "Library Books"
         NoSeriesMgt: Codeunit NoSeriesManagement;
     begin
 
-        LibraryGeneralSetup.Get();
+        LibraryGeneralSetup.GetRecordOnce();
         LibraryGeneralSetup.TestField("Library Books Nos.");
         Rec.BookID := NoSeriesMgt.GetNextNo(LibraryGeneralSetup."Library Books Nos.", WorkDate(), true);
-
-
     end;
 
     // Procedure to update a books "Rent Status" depending on if it was rent/returned.

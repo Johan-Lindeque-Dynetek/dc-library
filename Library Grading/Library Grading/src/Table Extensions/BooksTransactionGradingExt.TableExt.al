@@ -13,11 +13,17 @@ tableextension 50151 "Books Transaction Grading Ext" extends "Books Transactions
             DataClassification = CustomerContent;
 
         }
+        field(50161; "IsUpdated"; boolean)
+        {
+            Caption = 'Is Updated';
+            InitValue = false;
+        }
         field(50170; "Grade Description"; Text[200])
         {
             Caption = 'Grade Description';
             DataClassification = CustomerContent;
         }
+        
 
 
         modify("Transactions Type")
@@ -27,9 +33,17 @@ tableextension 50151 "Books Transaction Grading Ext" extends "Books Transactions
                 Rec.CalcReturnDate();
             end;
         }
+       
 
 
     }
+    trigger OnInsert();
+    begin
+        if  Rec."Transactions Type" = enum::"Transaction Type"::Rent  then
+            exit;
+        UpdateBookGrade(Rec);
+        
+    end;
 
 
     // Procedure to update the books Grade.
@@ -57,7 +71,7 @@ tableextension 50151 "Books Transaction Grading Ext" extends "Books Transactions
     begin
         if Rec."Transactions Type" = Enum::"Transaction Type"::Rent then begin
             // Get max rent period from setup.
-            LibraryGeneralSetup.Get();
+            LibraryGeneralSetup.GetRecordOnce();
             LibraryGeneralSetup.TestField("Rent Period");
             GetSetupRentPeriod := LibraryGeneralSetup."Rent Period";
 

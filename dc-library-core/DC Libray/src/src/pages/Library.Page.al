@@ -11,7 +11,7 @@ page 50100 "Library"
     {
         area(Content)
         {
-            group("the Books")
+            group("The Books in Library")
             {
                 repeater("Books")
                 {

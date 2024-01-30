@@ -85,12 +85,19 @@ table 50101 "Books Transactions"
             Editable = false;
             TableRelation = "No. Series";
         }
+        field(300; "Created At"; DateTime)
+        {
+            Caption = 'Created At';
+            DataClassification = ToBeClassified;
+            
+        }
+        
 
     }
 
     keys
     {
-        key(PK; TransactionID)
+        key(PK; "Created At", BookID, "Transactions Type")
         {
             Clustered = true;
         }
@@ -102,10 +109,16 @@ table 50101 "Books Transactions"
         LibraryGeneralSetup: Record "Library General Setup";
         NoSeriesMgt: Codeunit NoSeriesManagement;
     begin
-        LibraryGeneralSetup.Get();
-        LibraryGeneralSetup.TestField("Book Transaction Nos.");
-        Rec."No. Series" := NoSeriesMgt.GetNextNo(LibraryGeneralSetup."Book Transaction Nos." ,WorkDate(),true);
+        // LibraryGeneralSetup.Get();
+        // LibraryGeneralSetup.TestField("Book Transaction Nos.");
+        // Rec."No. Series" := NoSeriesMgt.GetNextNo(LibraryGeneralSetup."Book Transaction Nos." ,WorkDate(),true);
        
+    end;
+
+    trigger OnInsert();
+    begin
+        Rec."Created At" := System.CurrentDateTime();
+        Rec.Modify();
     end;
 
     
@@ -124,6 +137,7 @@ table 50101 "Books Transactions"
         BookTransaction.Validate(Title, LibraryBooks.Title);
         BookTransaction.Validate(Author, LibraryBooks.Author);
         BookTransaction.Validate("Transactions Date", Today());
+        BookTransaction.Validate("Created At", System.CurrentDateTime());
 
         case LibraryBooks."Rent Status" of
             'Rented':
