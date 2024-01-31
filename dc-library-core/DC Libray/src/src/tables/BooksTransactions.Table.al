@@ -104,16 +104,7 @@ table 50101 "Books Transactions"
         
     }
 
-    trigger OnModify()
-    var
-        LibraryGeneralSetup: Record "Library General Setup";
-        NoSeriesMgt: Codeunit NoSeriesManagement;
-    begin
-        // LibraryGeneralSetup.Get();
-        // LibraryGeneralSetup.TestField("Book Transaction Nos.");
-        // Rec."No. Series" := NoSeriesMgt.GetNextNo(LibraryGeneralSetup."Book Transaction Nos." ,WorkDate(),true);
-       
-    end;
+   
 
     trigger OnInsert();
     begin
