@@ -11,7 +11,7 @@ page 50100 "Library"
     {
         area(Content)
         {
-            group("the Books")
+            group("The Books in Library")
             {
                 repeater("Books")
                 {
@@ -52,7 +52,7 @@ page 50100 "Library"
     {
         area(Promoted)
         {
-            group("Filters")
+            group("Library Filters")
             {
                 Caption = 'Filters';
 
@@ -66,7 +66,7 @@ page 50100 "Library"
 
                 }
             }
-            group("Services")
+            group("Library Services")
             {
                 actionref("Rent or Return"; "Rent/Return")
                 {
@@ -86,8 +86,6 @@ page 50100 "Library"
                 Caption = 'Top 3 books rented.';
                 ToolTip = 'Shows the Top 3 books rented.';
                 Image = AnalysisView;
-                // Promoted = true;
-                // PromotedCategory = Process;
 
 
                 trigger OnAction()
@@ -127,8 +125,6 @@ page 50100 "Library"
                 Caption = 'Recent books.';
                 ToolTip = 'Filter to show the books bublished in the last 2 years.';
                 Image = DueDate;
-                // Promoted = true;
-                // PromotedCategory = Process;
 
                 trigger OnAction()
                 var
@@ -148,16 +144,17 @@ page 50100 "Library"
                 Caption = 'Rent or Return a book';
                 ToolTip = 'Action for renting or reurning the selected book.';
                 Image = BOMRegisters;
-                // Promoted = true;
-                // PromotedCategory = Process;
-
+               
                 trigger OnAction()
                 var
                     BooksTransactionsTable: Record "Books Transactions";
                 begin
+                    if not Rec.CheckBookRentability() then
+                        Message('Book cant be rented out!');
+                    
                     if Rec.CheckBookRentability() then
-                        BooksTransactionsTable.NewBookTransaction(Rec);
-                    Message('Book cant be rented out!');
+                    BooksTransactionsTable.NewBookTransaction(Rec);
+                    
                 end;
             }
 

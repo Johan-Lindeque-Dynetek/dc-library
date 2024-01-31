@@ -1,8 +1,11 @@
 {
     "folders": [
         {
+            "path": "Dynetek"
+          },
+          {
             "path": ".AL-Go"
-        }
+          }
     ],
     "settings": {}
 }

@@ -18,7 +18,11 @@ page 50106 "List Book Transactions"
                     field(TransactionID; Rec.TransactionID)
                     {
                         ToolTip = 'Specifies the value of the TransactionID field.';
-                        
+
+                    }
+                    field("No. Series"; Rec."No. Series")
+                    {
+                        ToolTip = 'Specifies the value of the No. Series field.';
                     }
                     field("Transactions Date"; Rec."Transactions Date")
                     {
@@ -48,6 +52,7 @@ page 50106 "List Book Transactions"
                     {
                         ToolTip = 'Specifies the value of the Customer Name field.';
                     }
+                    
                 }
 
             }

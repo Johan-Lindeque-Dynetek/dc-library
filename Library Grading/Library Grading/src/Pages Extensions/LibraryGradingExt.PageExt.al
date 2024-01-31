@@ -31,6 +31,7 @@ pageextension 50150 "Library Grading Ext" extends Library
 
     actions
     {
+        
         addafter("Rent/Return")
         {
 
@@ -40,19 +41,14 @@ pageextension 50150 "Library Grading Ext" extends Library
                 Caption = 'Update grade of book';
                 ToolTip = 'Change or give a book a grading based on its condition. Options areA,B,C,D with A being the highest and D the lowest rating';
                 Image = "1099Form";
-                // Promoted = true;
-                // PromotedCategory = Process;
+
 
                 trigger OnAction()
                 var
                     BookGrading: Page "Book Grading";
-
-
                 begin
                     BookGrading.SetRecord(Rec);
                     BookGrading.Run();
-
-
                 end;
             }
 
@@ -95,7 +91,7 @@ pageextension 50150 "Library Grading Ext" extends Library
                 ApplicationArea = All;
                 Caption = 'Books Overdue.';
                 ToolTip = 'FIlter and show all the books that currently are overdue for return.';
-                Image = ServicePriceAdjustment;
+                Image = BlanketOrder;
 
                 trigger OnAction()
                 var

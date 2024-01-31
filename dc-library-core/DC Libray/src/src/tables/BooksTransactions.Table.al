@@ -12,7 +12,7 @@ table 50101 "Books Transactions"
             AutoIncrement = true;
             Editable = false;
         }
-        field(2; BookID; Integer)
+        field(2; BookID; Code[20])
         {
             Caption = 'BookID';
             DataClassification = CustomerContent;
@@ -79,17 +79,40 @@ table 50101 "Books Transactions"
             Caption = 'MyField';
             DataClassification = ToBeClassified;
         }
+        field(10; "No. Series"; Code[20])
+        {
+            Caption = 'No. Series';
+            Editable = false;
+            TableRelation = "No. Series";
+        }
+        field(300; "Created At"; DateTime)
+        {
+            Caption = 'Created At';
+            DataClassification = ToBeClassified;
+            
+        }
+        
 
     }
 
     keys
     {
-        key(PK; TransactionID)
+        key(PK; "Created At", BookID, "Transactions Type")
         {
             Clustered = true;
         }
         
     }
+
+   
+
+    trigger OnInsert();
+    begin
+        Rec."Created At" := System.CurrentDateTime();
+        Rec.Modify();
+    end;
+
+    
 
     // Procedure to get the LibraryBooks record that was selected then init a new record in the BookTransaction table.
     procedure NewBookTransaction(LibraryBooks: Record "Library Books")
@@ -101,11 +124,11 @@ table 50101 "Books Transactions"
     begin
 
         BookTransaction.Init();
-        // BookTransaction.BookID := LibraryBooks.BookID;
         BookTransaction.Validate(BookID, LibraryBooks.BookID);
         BookTransaction.Validate(Title, LibraryBooks.Title);
         BookTransaction.Validate(Author, LibraryBooks.Author);
         BookTransaction.Validate("Transactions Date", Today());
+        BookTransaction.Validate("Created At", System.CurrentDateTime());
 
         case LibraryBooks."Rent Status" of
             'Rented':

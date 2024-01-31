@@ -29,10 +29,10 @@ tableextension 50150 "Library Books Grading Ext" extends "Library Books"
             Caption = 'Weeded';
             DataClassification = CustomerContent;
 
-            // trigger OnValidate();
-            // begin
-            //     Rec.WeedingOutBooks();
-            // end;
+            trigger OnValidate();
+            begin
+                Rec.WeedingOutBooks();
+            end;
         }
     }
 
@@ -64,8 +64,11 @@ tableextension 50150 "Library Books Grading Ext" extends "Library Books"
 
     procedure SetBookRepairStatus()
     begin
-        if Rec.Grade = Enum::"Book Grade"::D then
+        if Rec.Grade = Enum::"Book Grade"::D then begin
             Rec."Rent Status" := 'Need repair.';
+            Message('The book: ' + Rec.Title + '  is out for repair and can not be rented out.');
+        end;
+            
 
     end;
 
