@@ -1,10 +1,11 @@
-report 50151 "Book by Author RDLC"
+report 50150 "Books By Author"
 {
-    Caption = 'Books By Author (RDLC)';
+    Caption = 'Books By Author (WORD)';
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
-    DefaultLayout = RDLC;
-    RDLCLayout = 'BooksByAuthorRDLC.rdl';
+    DefaultLayout = Word;
+    WordLayout = 'BooksByAuthorWord.docx';
+
 
     dataset
     {
@@ -12,12 +13,9 @@ report 50151 "Book by Author RDLC"
         {
             DataItemTableView = sorting(Author);
 
-
-
             column(LibraryBooksAuthor; "Author")
             {
                 IncludeCaption = true;
-
 
             }
             column(Title_LibraryBooksDataItem; Title)
@@ -28,7 +26,7 @@ report 50151 "Book by Author RDLC"
             {
                 IncludeCaption = true;
             }
-
+            
             // Show count for grades of each author
             column(Grade_A_count; CountGradeA)
             {
@@ -46,11 +44,22 @@ report 50151 "Book by Author RDLC"
             {
 
             }
-            
-            trigger OnAfterGetRecord();
 
+
+            trigger OnPreDataItem();
             begin
-                // New author reset counters.
+               
+
+            end;
+
+            trigger OnAfterGetRecord()
+            var
+                LibraryBooks: Record "Library Books";
+            begin
+                LibraryBooks.SetCurrentKey("Author");
+                LibraryBooks.Ascending := true;
+
+                 // New author reset counters.
                 if  LibraryBooksDataItem.Author <> TheCurrAuth then begin
                     TheCurrAuth := LibraryBooksDataItem.Author;
                     CountGradeA := 0;
@@ -73,12 +82,7 @@ report 50151 "Book by Author RDLC"
 
             end;
         }
-    }
 
-
-    labels
-    {
-        TitleLabel = 'My Title';
     }
     var
         TitleLbl: Label 'The authors';
@@ -87,8 +91,4 @@ report 50151 "Book by Author RDLC"
         CountGradeB: Integer;
         CountGradeC: Integer;
         CountGradeD: Integer;
-
-
-
-
 }
