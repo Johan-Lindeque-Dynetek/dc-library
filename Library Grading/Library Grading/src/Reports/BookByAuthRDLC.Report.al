@@ -46,7 +46,7 @@ report 50151 "Book by Author RDLC"
             {
 
             }
-            
+
             trigger OnAfterGetRecord();
 
             begin
@@ -75,13 +75,7 @@ report 50151 "Book by Author RDLC"
         }
     }
 
-
-    labels
-    {
-        TitleLabel = 'My Title';
-    }
     var
-        TitleLbl: Label 'The authors';
         TheCurrAuth: Text[50];
         CountGradeA: Integer;
         CountGradeB: Integer;

@@ -26,7 +26,7 @@ report 50150 "Books By Author"
             {
                 IncludeCaption = true;
             }
-            
+
             // Show count for grades of each author
             column(Grade_A_count; CountGradeA)
             {
@@ -48,7 +48,7 @@ report 50150 "Books By Author"
 
             trigger OnPreDataItem();
             begin
-               
+
 
             end;
 
@@ -59,8 +59,8 @@ report 50150 "Books By Author"
                 LibraryBooks.SetCurrentKey("Author");
                 LibraryBooks.Ascending := true;
 
-                 // New author reset counters.
-                if  LibraryBooksDataItem.Author <> TheCurrAuth then begin
+                // New author reset counters.
+                if LibraryBooksDataItem.Author <> TheCurrAuth then begin
                     TheCurrAuth := LibraryBooksDataItem.Author;
                     CountGradeA := 0;
                     CountGradeB := 0;
@@ -85,7 +85,7 @@ report 50150 "Books By Author"
 
     }
     var
-        TitleLbl: Label 'The authors';
+       
         TheCurrAuth: Text[50];
         CountGradeA: Integer;
         CountGradeB: Integer;
