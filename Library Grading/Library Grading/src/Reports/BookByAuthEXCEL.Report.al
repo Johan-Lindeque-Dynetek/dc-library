@@ -1,7 +1,7 @@
 report 50152 "Book by Author Excel"
 {
     Caption = 'Book by Author (Excel)';
-    UsageCategory = Administration;
+    UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout= Excel;
     ExcelLayout = 'BooksByAuthorEXCEL.xlsx';
