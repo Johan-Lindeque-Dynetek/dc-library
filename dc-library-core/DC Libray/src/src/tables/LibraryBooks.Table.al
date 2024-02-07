@@ -107,13 +107,17 @@ table 50100 "Library Books"
         {
             Clustered = true;
         }
+        key(Key2; Author)
+        {
+
+        }
     }
 
     trigger OnInsert()
     begin
         if Rec.BookID = '' then
             Rec.AddNewNos();
-        
+
     end;
 
     procedure AddNewNos()
