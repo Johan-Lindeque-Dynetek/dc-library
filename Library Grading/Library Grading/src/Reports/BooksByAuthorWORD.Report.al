@@ -84,6 +84,13 @@ report 50150 "Books By Author"
         }
 
     }
+    // rendering
+    // {
+    //     layout
+    //     {
+    //         Type = Excel
+    //     }
+    // }
     var
        
         TheCurrAuth: Text[50];
