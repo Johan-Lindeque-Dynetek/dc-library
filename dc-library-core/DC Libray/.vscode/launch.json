@@ -6,6 +6,26 @@
             "type": "al",
             "request": "launch",
             "environmentType": "OnPrem",
+            "server": "http://cogo-server",
+            "serverInstance": "BC",
+            "authentication": "UserPassword",
+            "startupObjectId": 22,
+            "breakOnError": "All",
+            "breakOnRecordWrite": "None",
+            "launchBrowser": true,
+            "enableSqlInformationDebugger": true,
+            "enableLongRunningSqlStatements": true,
+            "longRunningSqlStatementsThreshold": 500,
+            "numberOfSqlStatements": 10,
+            "tenant": "default",
+            "usePublicURLFromServer": true
+        },
+        
+        {
+            "name": "Publish: Your own server",
+            "type": "al",
+            "request": "launch",
+            "environmentType": "OnPrem",
             "server": "http://dream-covers",
             "serverInstance": "BC",
             "authentication": "UserPassword",
@@ -19,7 +39,6 @@
             "numberOfSqlStatements": 10,
             "tenant": "default",
             "usePublicURLFromServer": true,
-            "schemaUpdateMode": "ForceSync"
         }
         
         

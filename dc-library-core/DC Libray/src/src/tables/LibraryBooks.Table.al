@@ -50,7 +50,7 @@ table 50100 "Library Books"
             DataClassification = CustomerContent;
 
         }
-        field(5; Genre; Text[50])
+        field(5; Genre; enum "Book Genre")
         {
             Caption = 'Genre';
             DataClassification = CustomerContent;
@@ -98,6 +98,7 @@ table 50100 "Library Books"
             DataClassification = CustomerContent;
 
         }
+        
 
     }
 

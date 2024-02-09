@@ -1060,15 +1060,6 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="TitleLabel">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>TitleLabel</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>TitleLabel</Prompt>
-    </ReportParameter>
     <ReportParameter Name="LibraryBooksAuthorCaption">
       <DataType>String</DataType>
       <DefaultValue>
@@ -1100,26 +1091,21 @@
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>1</NumberOfColumns>
-      <NumberOfRows>4</NumberOfRows>
+      <NumberOfRows>3</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>TitleLabel</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>1</RowIndex>
           <ParameterName>LibraryBooksAuthorCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>2</RowIndex>
+          <RowIndex>1</RowIndex>
           <ParameterName>Title_LibraryBooksDataItemCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>3</RowIndex>
+          <RowIndex>2</RowIndex>
           <ParameterName>Grade_LibraryBooksDataItemCaption</ParameterName>
         </CellDefinition>
       </CellDefinitions>

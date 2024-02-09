@@ -30,6 +30,7 @@ page 50102 "Add Sequel"
                 {
                     ToolTip = 'Specifies the value of the Genre field.';
                     ShowMandatory = true;
+                    
 
                 }
                 field(Pages; Rec.Pages)
