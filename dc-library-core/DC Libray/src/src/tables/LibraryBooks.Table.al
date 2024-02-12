@@ -104,14 +104,11 @@ table 50100 "Library Books"
 
     keys
     {
-        key(PK; BookID)
+        key(PK; BookID, Author, Title)
         {
             Clustered = true;
         }
-        key(Key2; Author)
-        {
-
-        }
+        
     }
 
     trigger OnInsert()

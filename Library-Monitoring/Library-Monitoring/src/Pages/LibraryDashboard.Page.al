@@ -10,17 +10,17 @@ page 50200 "Library Dashboard"
     {
         area(Content)
         {
-            
+
             group(inligting)
             {
 
-                field(Author; Rec.Autor)
+                field(Author; Rec."Author")
                 {
                     ApplicationArea = All;
                     Caption = 'Author';
                     ToolTip = 'Specifies the value of the Author field.';
                     Editable = true;
-                    
+
                 }
                 field(Genre; Rec.Genre)
                 {
@@ -28,7 +28,7 @@ page 50200 "Library Dashboard"
                     Caption = 'Genre';
                     ToolTip = 'Specifies the value of the Genre field.';
                     Editable = true;
-                     
+
                 }
                 field("Date added"; Rec."Date by")
                 {
@@ -36,13 +36,13 @@ page 50200 "Library Dashboard"
                     Caption = 'Date added';
                     ToolTip = 'Specifies the value of the Date added field.';
                     Editable = true;
-                     
+
                 }
-                
+
             }
             group("Total of Books:")
             {
-                
+
                 field("Total available books"; Rec."Total available books")
                 {
                     ApplicationArea = All;
@@ -62,7 +62,7 @@ page 50200 "Library Dashboard"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Total rented books field.';
-                    
+
                 }
                 field("Total unique books"; Rec."Total unique books")
                 {
@@ -73,19 +73,5 @@ page 50200 "Library Dashboard"
         }
     }
 
-    actions
-    {
-        // area(Processing)
-        // {
-        //     action(ActionName)
-        //     {
-        //         ApplicationArea = All;
 
-        //         trigger OnAction()
-        //         begin
-
-        //         end;
-        //     }
-        // }
-    }
 }
