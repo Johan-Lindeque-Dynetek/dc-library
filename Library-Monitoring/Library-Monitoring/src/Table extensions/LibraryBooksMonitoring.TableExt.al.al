@@ -10,9 +10,6 @@ tableextension 50200 "Library Books Monitoring" extends "Library Books"
 
         
 
-
-
-
     }
 
 }

@@ -127,9 +127,5 @@ table 50200 "Monitor Books"
     }
 
 
-    // procedure GetListOfAuthors()
-    // begin
-
-    // end;
 
 }
