@@ -1,4 +1,4 @@
-page 50200 "Library Dashboard"
+page 50200 "Monitor Books Dashboard"
 {
     Caption = 'Library Dashboard';
     PageType = list;
@@ -11,9 +11,9 @@ page 50200 "Library Dashboard"
         area(Content)
         {
 
-            group(inligting)
+            group(Filters)
             {
-
+                Caption = 'Filters';
                 field(Author; Rec."Author")
                 {
                     ApplicationArea = All;
@@ -85,6 +85,13 @@ page 50200 "Library Dashboard"
     
     actions
     {
+        area(Promoted)
+        {
+            actionref("Clear Filters"; Clear)
+            {
+
+            }
+        }
         area(Processing)
         {
             action(Clear)
@@ -93,15 +100,12 @@ page 50200 "Library Dashboard"
                 Caption = 'Clear all the Filter inputs';
                 ToolTip = 'Clear all the Filter inputs to default values';
                 Image = ClearFilter;
-                Promoted = true;
-                // PromotedCategory = Process;
-                PromotedIsBig = true;
-
-
                 
                 trigger OnAction()
                 begin
-                    Rec."Author Filter" := '';
+                    Rec.Author := '';
+                    Rec.Genre := Enum::"Book Genre"::" ";
+                    Rec."Date by" := 0D;
               
                     
                 end;

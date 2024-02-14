@@ -2,8 +2,10 @@ enum 50101 "Book Genre"
 {
     Extensible = true;
     
-    value(0; "")
+    value(0; " ")
     {
+        Caption = ' ';
+
     }
     value(1; "Romance")
     {
