@@ -74,11 +74,33 @@ page 50100 "Library"
 
                 }
             }
+            group("Navigate Library")
+            {
+                actionref("Book Transaction Page"; "BookTransactionPage")
+                {
+
+                }
+
+            }
         }
 
         area(Processing)
         {
+            action(BookTransactionPage)
+            {
+                ApplicationArea = All;
+                Caption = 'Book Transaction Page';
+                ToolTip = 'Opens the Book Transaction page.';
+                Image = Allocate;
 
+                trigger OnAction()
+                var
+                    ListBookTransactions: Page "List Book Transactions";
+                begin
+                    ListBookTransactions.Run();
+
+                end;
+            }
 
             // This action displays the top 3 rented books.
             action("Top 3")
