@@ -105,9 +105,7 @@ page 50200 "Monitor Books Dashboard"
                 begin
                     Rec.Author := '';
                     Rec.Genre := Enum::"Book Genre"::" ";
-                    Rec."Date by" := 0D;
-              
-                    
+                    Rec."Date by" := 0D;  
                 end;
             }
         }
