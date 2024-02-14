@@ -1,0 +1,17 @@
+{
+    "folders": [
+          {
+            "path": "dc-library-core"
+          },
+          {
+            "path": "Library Grading"
+          },
+          {
+            "path": "Library-Monitoring"
+          },
+          {
+            // "path": ".AL-Go"
+          }
+    ],
+    "settings": {}
+}
