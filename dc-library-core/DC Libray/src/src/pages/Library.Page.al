@@ -15,8 +15,6 @@ page 50100 "Library"
             {
                 repeater("Books")
                 {
-
-
                     field(Title; Rec.Title)
                     {
                         ToolTip = 'Specifies the value of the MyField field.';
@@ -41,7 +39,10 @@ page 50100 "Library"
                     {
                         ToolTip = 'Specifies the value of the Series field.';
                     }
-
+                    field("Publication Date"; Rec."Publication Date")
+                    {
+                        ToolTip = 'Specifies the value of the Publication Date field.';
+                    }
                 }
 
             }
@@ -73,11 +74,33 @@ page 50100 "Library"
 
                 }
             }
+            group("Navigate Library")
+            {
+                actionref("Book Transaction Page"; "BookTransactionPage")
+                {
+
+                }
+
+            }
         }
 
         area(Processing)
         {
+            action(BookTransactionPage)
+            {
+                ApplicationArea = All;
+                Caption = 'Book Transaction Page';
+                ToolTip = 'Opens the Book Transaction page.';
+                Image = Allocate;
 
+                trigger OnAction()
+                var
+                    ListBookTransactions: Page "List Book Transactions";
+                begin
+                    ListBookTransactions.Run();
+
+                end;
+            }
 
             // This action displays the top 3 rented books.
             action("Top 3")
@@ -144,17 +167,17 @@ page 50100 "Library"
                 Caption = 'Rent or Return a book';
                 ToolTip = 'Action for renting or reurning the selected book.';
                 Image = BOMRegisters;
-               
+
                 trigger OnAction()
                 var
                     BooksTransactionsTable: Record "Books Transactions";
                 begin
                     if not Rec.CheckBookRentability() then
                         Message('Book cant be rented out!');
-                    
+
                     if Rec.CheckBookRentability() then
-                    BooksTransactionsTable.NewBookTransaction(Rec);
-                    
+                        BooksTransactionsTable.NewBookTransaction(Rec);
+
                 end;
             }
 

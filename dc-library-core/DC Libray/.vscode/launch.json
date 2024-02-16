@@ -1,6 +1,8 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
+        
         {
             "name": "Publish: Your own server",
             "type": "al",
@@ -19,7 +21,7 @@
             "numberOfSqlStatements": 10,
             "tenant": "default",
             "usePublicURLFromServer": true,
-            "schemaUpdateMode": "ForceSync"
+            // "schemaUpdateMode": "ForceSync"
         }
         
         

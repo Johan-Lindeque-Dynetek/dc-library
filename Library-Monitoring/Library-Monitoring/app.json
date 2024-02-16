@@ -10,7 +10,20 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "id":  "686d7617-2df9-4391-89ef-d99ab2502089",
+      "name":  "DC Libray",
+      "publisher":  "Dynetek (Pty) Ltd",
+      "version":  "1.0.20240117.1428"
+    },
+    {
+      "id": "ac940ef6-6057-4af3-ac05-424d2e0d9d20",
+      "name": "Library Grading",
+      "publisher": "Dynetek",
+      "version": "1.0.20240129.1435"
+    }
+  ],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "22.0.0.0",

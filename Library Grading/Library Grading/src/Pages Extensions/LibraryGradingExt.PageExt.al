@@ -31,6 +31,28 @@ pageextension 50150 "Library Grading Ext" extends Library
 
     actions
     {
+        addlast("Library Filters")
+        {
+            actionref("Books For Repair"; "BooksForRepair")
+            {
+
+            }
+        }
+        addlast("Library Services")
+        {
+            actionref("Check Overdue"; "CheckOverdue")
+            {
+
+            }
+            actionref("Grade Book"; "GradeBook")
+            {
+
+            }
+            actionref("Weeding Books"; "WeedingBooks")
+            {
+
+            }
+        }
         
         addafter("Rent/Return")
         {
