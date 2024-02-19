@@ -9,7 +9,7 @@ table 50201 "Library Cues"
             NotBlank = true;
             DataClassification = ToBeClassified;
         }
-        // Cue to show amount of books published in the last month
+        
         field(2; "Books this month"; integer)
         {
             
