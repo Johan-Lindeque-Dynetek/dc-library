@@ -98,6 +98,29 @@ table 50100 "Library Books"
             DataClassification = CustomerContent;
 
         }
+
+        // Open Library API fields added
+        field(15; "OL ID"; Text[20])
+        {
+            Caption = 'Open Library ID';
+            DataClassification = ToBeClassified;
+        }
+        field(16; "ISBN"; Text[13])
+        {
+            Caption = 'ISBN';
+            DataClassification = ToBeClassified;
+        }
+        field(17; "Author OL ID"; Text[13])
+        {
+            Caption = 'Author OL ID';
+            DataClassification = ToBeClassified;
+        }
+        field(18; "Description"; Text[200])
+        {
+            Caption = 'Description';
+            DataClassification = ToBeClassified;
+        }
+        
         
 
     }

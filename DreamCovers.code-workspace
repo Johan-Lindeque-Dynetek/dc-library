@@ -10,6 +10,9 @@
             "path": "Library-Monitoring"
           },
           {
+            "path": "Open Library API"
+          },
+          {
             // "path": ".AL-Go"
           }
     ],

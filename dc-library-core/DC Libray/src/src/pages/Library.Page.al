@@ -80,12 +80,17 @@ page 50100 "Library"
                 {
 
                 }
+                actionref("Authors Page"; "AuthorsPage")
+                {
+
+                }
 
             }
         }
 
         area(Processing)
-        {
+        {   
+            // Navigate to pages
             action(BookTransactionPage)
             {
                 ApplicationArea = All;
@@ -98,6 +103,21 @@ page 50100 "Library"
                     ListBookTransactions: Page "List Book Transactions";
                 begin
                     ListBookTransactions.Run();
+
+                end;
+            }
+            action(AuthorsPage)
+            {
+                ApplicationArea = All;
+                Caption = 'Authors Page';
+                ToolTip = 'Opens the Authors page.';
+                Image = Allocate;
+
+                trigger OnAction()
+                var
+                    Authors: Page Authors;
+                begin
+                    Authors.Run();
 
                 end;
             }
