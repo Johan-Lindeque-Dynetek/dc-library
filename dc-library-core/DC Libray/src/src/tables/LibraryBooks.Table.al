@@ -19,7 +19,7 @@ table 50100 "Library Books"
             Editable = false;
             TableRelation = "No. Series";
         }
-        field(2; Title; Text[100])
+        field(2; Title; Text[250])
         {
             Caption = 'Title';
             DataClassification = CustomerContent;
@@ -120,7 +120,6 @@ table 50100 "Library Books"
             Caption = 'Description';
             DataClassification = ToBeClassified;
         }
-        
         
 
     }

@@ -1,0 +1,58 @@
+{
+  "numFound": 51,
+  "start": 0,
+  "numFoundExact": true,
+  "docs": [
+    {
+      "key": "/works/OL19622295W",
+      "type": "work",
+      "seed": [
+        "/books/OL27096945M",
+        "/books/OL26843332M",
+        "/books/OL32163067M"
+      ],
+      "title": "A Court of Thorns and Roses Box Set",
+      "publish_date": [
+        "2022",
+        "Sep 05, 2017",
+        "Jan 05, 2021",
+        "2021",
+        "Jul 08, 2017"
+      ],
+      "publish_year": [2021, 2017, 2022],
+      "first_publish_year": 2017,
+      "number_of_pages_median": 2706,
+      "isbn": ["1526630788", "1639730192"],
+
+      "publisher": [
+        "Bloomsbury Publishing",
+        "Bloomsbury Publishing PLC",
+        "Bloomsbury USA Childrens",
+        "Bloomsbury Publishing USA"
+      ],
+      "language": ["eng"],
+      "author_key": ["OL7115219A"],
+      "author_name": ["Sarah J. Maas"],
+      "author_alternative_name": ["Sarah Maas", "sarah j maas"]
+    },
+    {
+      "key": "/works/OL20098073W",
+      "type": "work",
+      "seed": ["/books/OL35823067M", "/books/OL27278111M"],
+      "title": "A Court of Thorns and Roses Coloring Book",
+      "publish_date": ["May 02, 2017", "2017"],
+      "publish_year": [2017],
+      "first_publish_year": 2017,
+      "number_of_pages_median": 96,
+      "publish_place": ["New York City, USA", "London, UK"],
+      "isbn": ["9781681195766", "1408888424", "9781408888421", "1681195763"],
+
+      "author_key": ["OL7115219A"],
+      "author_name": ["Sarah J. Maas"],
+      "author_alternative_name": ["SARAH MAAS", "Sarah J Maas"]
+    }
+  ],
+  "num_found": 51,
+  "q": "a court of thorns and roses",
+  "offset": null
+}

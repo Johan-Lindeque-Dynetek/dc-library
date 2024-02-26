@@ -10,7 +10,20 @@
   "help": "",
   "url": "",
   "logo": "",
-  "dependencies": [],
+  "dependencies": [
+    {
+      "id": "686d7617-2df9-4391-89ef-d99ab2502089",
+      "name": "DC Libray",
+      "publisher": "Dynetek (Pty) Ltd",
+      "version": "1.0.20240117.1428"
+    },
+    {
+      "id": "a633d3fb-cca3-4ad2-ace0-77a00a664032",
+      "name": "Ascent API Libary",
+      "publisher": "Dynetek (Pty) Ltd",
+      "version": "20.3.20230908.0821"
+    }
+  ],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "22.0.0.0",
@@ -20,9 +33,7 @@
       "to": 50299
     }
   ],
-  "features": [
-    "NoImplicitWith"
-  ],
+  "features": ["NoImplicitWith"],
   "resourceExposurePolicy": {
     "allowDebugging": true,
     "allowDownloadingSource": false,
