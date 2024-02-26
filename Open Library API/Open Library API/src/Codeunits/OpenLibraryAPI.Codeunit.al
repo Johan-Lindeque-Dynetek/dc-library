@@ -186,24 +186,25 @@ codeunit 50250 "Open Library API"
 
 
             TmpLibraryBooks.AddNewNos();
+
             // Get book OL id.
             if BookObject.Get('key', RetrieveToken) then begin
-                OpenLibID := CopyStr(RetrieveToken.AsValue().AsText(), StrPos(RetrieveToken.AsValue().AsText(), '/works') + 7);
+                OpenLibID := CopyStr(CopyStr(RetrieveToken.AsValue().AsText(), StrPos(RetrieveToken.AsValue().AsText(), '/works') + 7), 1, MaxStrLen(OpenLibID));
                 TmpLibraryBooks."OL ID" := OpenLibID;
             end;
             // Get book title.
             if BookObject.Get('title', RetrieveToken) then
-                TmpLibraryBooks.Title := RetrieveToken.AsValue().AsText();
+                TmpLibraryBooks.Title := CopyStr(RetrieveToken.AsValue().AsText(), 1, MaxStrLen(TmpLibraryBooks.Title));
             // Get book author & author OL id.
             if BookObject.Get('author_name', RetrieveToken) then begin
                 AuthorArray := RetrieveToken.AsArray();
                 if AuthorArray.Get(0, RetrieveToken) then
-                    TmpLibraryBooks.Author := RetrieveToken.AsValue().AsText();
+                    TmpLibraryBooks.Author := CopyStr(RetrieveToken.AsValue().AsText(), 1, MaxStrLen(TmpLibraryBooks.Author));
             end;
             if BookObject.Get('author_key', RetrieveToken) then begin
                 AuthorArray := RetrieveToken.AsArray();
                 if AuthorArray.Get(0, RetrieveToken) then
-                    TmpLibraryBooks."Author OL ID" := RetrieveToken.AsValue().AsText();
+                    TmpLibraryBooks."Author OL ID" := CopyStr(RetrieveToken.AsValue().AsText(), 1, MaxStrLen(TmpLibraryBooks."Author OL ID"));
             end;
             // Set rent status.
             TmpLibraryBooks."Rent Status" := 'Available';
@@ -214,14 +215,14 @@ codeunit 50250 "Open Library API"
             if BookObject.Get('isbn', RetrieveToken) then begin
                 ISBNArray := RetrieveToken.AsArray();
                 if ISBNArray.Get(0, RetrieveToken) then
-                    TmpLibraryBooks.ISBN := RetrieveToken.AsValue().AsText();
+                    TmpLibraryBooks.ISBN := CopyStr(RetrieveToken.AsValue().AsText(), 1, MaxStrLen(TmpLibraryBooks.ISBN));
             end;
             // Get the 'publisher' array from the first object in the 'docs' array.
             if BookObject.Get('publisher', RetrieveToken) then begin
                 PublisherArray := RetrieveToken.AsArray();
                 // Get the first publisher
                 if PublisherArray.Get(0, RetrieveToken) then
-                    TmpLibraryBooks.Publisher := RetrieveToken.AsValue().AsText();
+                    TmpLibraryBooks.Publisher := CopyStr(RetrieveToken.AsValue().AsText(), 1, MaxStrLen(TmpLibraryBooks.Publisher));
             end;
             // Get the 'publish_date' array from the first object in the 'docs' array.
             if BookObject.Get('publish_date', RetrieveToken) then begin
@@ -246,6 +247,8 @@ codeunit 50250 "Open Library API"
         repeat
             LibraryBooks.SetFilter("OL ID", TempLibraryBooks."OL ID");
             if not LibraryBooks.FindSet() then begin
+                        // temp.set filter
+                        // og .copy  
 
             end;
 
