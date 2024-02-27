@@ -1,13 +1,12 @@
 codeunit 50250 "Open Library Books API"
 {
+    Description = 'Get the Books from Open Library API and populate "Library Books" table.';
    
     procedure SearchISBN(var TmpLibraryBooks: Record "Library Books"; SearchISBN: Text[13])
     var
         LibraryGeneralAPISetup: Record "Library General API Setup";
         AATRESTHelper: Codeunit "AAT REST Helper";
-
         FailedRequesrErr: Label 'Failed to send Request. Check URL and try again.';
-
     begin
         //  Initialize  request.
         LibraryGeneralAPISetup.GetRecordOnce();
@@ -49,14 +48,14 @@ codeunit 50250 "Open Library Books API"
             DisplayAPIFailureMessage(AATRESTHelper);
         end;
 
-        DisplayAPISuccessMessage(AATRESTHelper);
+        // DisplayAPISuccessMessage(AATRESTHelper);
         //  Initialize the JSON object from the response content.
         CreateTempBook(TmpLibraryBooks, AATRESTHelper);
 
     end;
 
 
-
+    // Display a detailed message when request Failed.
     local procedure DisplayAPIFailureMessage(var AATRestHelper: Codeunit "AAT REST Helper")
     var
         ErrorBreakDownLbl: Label 'ERROR       Code: %1\Message: %2\Reason: %3', Comment = '%1=Error Code, %2 = Err Message %3 = Err. Reason';
@@ -71,7 +70,7 @@ codeunit 50250 "Open Library Books API"
         );
     end;
 
-
+    // Display a detailed message when request is a Success.
     local procedure DisplayAPISuccessMessage(var AATRestHelper: Codeunit "AAT REST Helper")
     var
         ErrorBreakDownLbl: Label 'SUCCESS       Code: %1\Message: %2\Reason: %3', Comment = '%1=Error Code, %2 = Err Message %3 = Err. Reason';
@@ -86,6 +85,7 @@ codeunit 50250 "Open Library Books API"
         );
     end;
 
+//  Create a temperory record of books retrieved from Open Library API.
     local procedure CreateTempBook(var TmpLibraryBooks: Record "Library Books"; var AATRESTHelper: Codeunit "AAT REST Helper")
     var
         AATJSONHelper: Codeunit "AAT JSON Helper";
@@ -201,6 +201,7 @@ codeunit 50250 "Open Library Books API"
 
 
             until TempLibraryBooks.Next() = 0;
+            Message('Selected book(s) has been added to Library.');
 
     end;
 

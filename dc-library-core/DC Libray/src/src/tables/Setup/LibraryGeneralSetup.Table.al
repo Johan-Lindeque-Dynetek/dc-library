@@ -26,6 +26,11 @@ table 50102 "Library General Setup"
             Caption = 'Max Rent Period for books';
             
         }
+         field(5; "Authors Nos."; Code[20])
+        {
+            Caption = 'Authors Nos.';
+            TableRelation = "No. Series";
+        }
         
         
 

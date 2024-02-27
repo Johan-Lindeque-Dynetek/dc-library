@@ -26,6 +26,12 @@ page 50105 "Library General Setup"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Book Transaction Nos. field.';
                 }
+                field("Authors Nos."; Rec."Authors Nos.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Authors Nos. field.';
+                }
+                
 
             }
         }
