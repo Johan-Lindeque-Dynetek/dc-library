@@ -6,7 +6,7 @@ page 50250 "Search Open Library"
     UsageCategory = Lists;
     SourceTable = "Library Books";
     SourceTableTemporary = true;
-    
+
     layout
     {
         area(Content)
@@ -32,7 +32,7 @@ page 50250 "Search Open Library"
                 }
 
             }
-        
+
             group(Books)
             {
                 repeater("Books Found")
@@ -84,11 +84,11 @@ page 50250 "Search Open Library"
                     //     ToolTip = 'Specifies the value of the Description field.';
                     // }
                 }
-                
+
             }
         }
     }
-    
+
     actions
     {
         area(Processing)
@@ -96,31 +96,32 @@ page 50250 "Search Open Library"
             action(SearchISBN)
             {
                 ApplicationArea = All;
-                Caption = 'Search ISBN';
+                Caption = 'Search by ISBN';
                 Image = Find;
-                
+
                 trigger OnAction()
                 var
-                    OpenLibraryAPI: Codeunit "Open Library API";
-                begin
-                    OpenLibraryAPI.SearchISBN(Rec,SearchISBN);
+                    OpenLibraryAPIBooks: Codeunit "Open Library Books API";
 
-                    
+                begin
+                    OpenLibraryAPIBooks.SearchISBN(Rec, SearchISBN);
+
+
                 end;
             }
             action(SearchTitle)
             {
                 ApplicationArea = All;
-                Caption = 'Search Title';
+                Caption = 'Search by Title';
                 Image = Find;
-                
+
                 trigger OnAction()
                 var
-                    OpenLibraryAPI: Codeunit "Open Library API";
+                    OpenLibraryAPIBooks: Codeunit "Open Library Books API";
                 begin
-                    OpenLibraryAPI.SearchTitle(Rec,SearchTitle);
+                    OpenLibraryAPIBooks.SearchTitle(Rec, SearchTitle);
 
-                    
+
                 end;
             }
             action(AddBook)
@@ -128,15 +129,24 @@ page 50250 "Search Open Library"
                 ApplicationArea = All;
                 Caption = 'Add books to library';
                 Image = Add;
-                
+
                 trigger OnAction()
                 var
-                    OpenLibraryAPI: Codeunit "Open Library API";
+                    OpenLibraryAPIBooks: Codeunit "Open Library Books API";
+                // SelectedBooks: Text;
                 begin
-                    CurrPage.SetSelectionFilter(Rec);
-                    OpenLibraryAPI.AddSelectedToLibrary(Rec);
 
-                    
+                    CurrPage.SetSelectionFilter(Rec);
+                    if Rec.FindSet() then
+                        repeat
+                            OpenLibraryAPIBooks.AddSelectedToLibrary(Rec);
+                        until Rec.Next() = 0;
+
+                    // repeat
+                    //     SelectedBooks += Rec.Title + ', ';
+                    // until Rec.Next() = 0;
+                    // SelectedBooks := CopyStr(SelectedBooks, 1, StrLen(SelectedBooks) - 2); // Remove trailing comma and space
+                    // Message('You selected: %1', SelectedBooks);
                 end;
             }
         }

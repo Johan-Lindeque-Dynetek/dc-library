@@ -1,66 +1,6 @@
-codeunit 50250 "Open Library API"
+codeunit 50250 "Open Library Books API"
 {
-    // procedure SearchByISBN(var TmpLibraryBooks: Record "Library Books"; SearchISBN: Text[13])
-    // var
-    //     AATAPI: Record "AAT API";
-    //     AATRestHelper: Codeunit "AAT REST Helper";
-    //     // LibraryGeneralAPISetup: Record "Library General API Setup";
-    //     AATJSONHelper: Codeunit "AAT JSON Helper";
-    //     SearchOpenLibrary: Page "Search Open Library";
-
-    //     Client: HttpClient;
-    //     ResponseMessage: HttpResponseMessage;
-    //     Token: JsonToken;
-    //     RetrieveToken: JsonToken;
-    //     ArrayToken: JsonToken;
-    //     Object: JsonObject;
-    //     JsonText: Text;
-    //     Url: Text;
-    // // TempLibraryBooks: Record "Library Books" temporary;
-
-    // begin
-    //     AATAPI.SetFilter(Description, 'Open Library');
-    //     if not AATAPI.FindFirst() then
-    //         exit;
-
-    //     Url := AATAPI."Dev. Base Endpoint" + '/search.json?isbn=' + SearchISBN;
-
-    //     if not Client.Get(Url, ResponseMessage) then
-    //         Error('The call to the web service failed.');
-    //     if not ResponseMessage.IsSuccessStatusCode then
-    //         Error('The web service returned an error message:\\' +
-    //             'Status code: %1\' +
-    //             'Description: %2',
-    //             ResponseMessage.HttpStatusCode,
-    //             ResponseMessage.ReasonPhrase);
-    //     ResponseMessage.Content.ReadAs(JsonText);
-
-    //     if not Object.ReadFrom(JsonText) then
-    //         Error('Invalid response, expected a JSON object');
-
-    //     if not Object.Get('docs', Token) then
-    //         Error('No docs array found in the JSON object');
-
-    //     if not Token.AsArray().Get(0, Token) then
-    //         Error('No first object found in the docs array');
-
-    //     Token.AsObject().Get('title', RetrieveToken);
-    //     TmpLibraryBooks.Title := RetrieveToken.AsValue().AsText();
-
-    // if not Object.Get('publish_date', ArrayToken) then
-    //     Error('No publish_date array found in the first object of the docs array');
-    // if ArrayToken.AsArray().Count() < 2 then
-    //     Error('Less than two publish_date values found');
-    //     // TmpLibraryBooks."Publication Date" := ArrayToken.AsArray().Get().AsValue().AsText();
-
-    //     Token.AsObject().Get('number_of_pages_median', RetrieveToken);
-    //     TmpLibraryBooks.Pages := RetrieveToken.AsValue().AsInteger();
-
-    //     TmpLibraryBooks.ISBN := SearchISBN;
-
-    // end;
-
-
+   
     procedure SearchISBN(var TmpLibraryBooks: Record "Library Books"; SearchISBN: Text[13])
     var
         LibraryGeneralAPISetup: Record "Library General API Setup";
@@ -242,18 +182,25 @@ codeunit 50250 "Open Library API"
     var
         LibraryBooks: Record "Library Books";
     begin
+        // if TempLibraryBooks.FindSet() then
+            repeat
+                LibraryBooks.Init();
+                librarybooks.AddNewNos();
+                LibraryBooks.Title := TempLibraryBooks.Title;
+                LibraryBooks."OL ID" := TempLibraryBooks."OL ID";
+                LibraryBooks.Author := TempLibraryBooks.Author;
+                LibraryBooks."Author OL ID" := TempLibraryBooks."Author OL ID";
+                LibraryBooks.ISBN := TempLibraryBooks.ISBN;
+                LibraryBooks."OL ID" := TempLibraryBooks."OL ID";
+                LibraryBooks.Pages := TempLibraryBooks.Pages;
+                LibraryBooks."Publication Date" := TempLibraryBooks."Publication Date";
+                LibraryBooks.Publisher := TempLibraryBooks.Publisher;
+                LibraryBooks."Rent Status" := TempLibraryBooks."Rent Status";
+                LibraryBooks."Rented Amount" := 0;
+                LibraryBooks.Insert();
 
 
-        repeat
-            LibraryBooks.SetFilter("OL ID", TempLibraryBooks."OL ID");
-            if not LibraryBooks.FindSet() then begin
-                        // temp.set filter
-                        // og .copy  
-
-            end;
-
-
-        until TempLibraryBooks.Next() = 0;
+            until TempLibraryBooks.Next() = 0;
 
     end;
 
