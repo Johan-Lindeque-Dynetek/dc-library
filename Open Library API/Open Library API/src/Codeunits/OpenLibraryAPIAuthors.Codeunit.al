@@ -2,14 +2,31 @@ codeunit 50251 "Open Library Authors API"
 {
     Description = 'Get the Author from Open Library API and populate "Authors" table.';
 
+    procedure CheckAuthorDetails(SearchAuthorID: Text)
+    var
+        Authors: Record Authors;
+    begin
+        Authors.SetCurrentKey("Author OL ID");
+        Authors.SetFilter("Author OL ID", SearchAuthorID);
+        if Authors.FindFirst() then
+            exit
+        else 
+            GetAuthorPayload(SearchAuthorID);
+       
+
+    end;
+
     //  Search for Author by Open Library ID and retrieve Author data.
-    procedure GetAuthorPayload(SearchAuthorID: Text)
+    local procedure GetAuthorPayload(SearchAuthorID: Text)
     var
         LibraryGeneralAPISetup: Record "Library General API Setup";
         AATRESTHelper: Codeunit "AAT REST Helper";
         FailedRequesrErr: Label 'Failed to send Request. Check URL and try again.';
+        Authors: Record Authors;
+
     begin
-        if not CheckAuthorExisit() then begin
+        Authors.SetFilter("Author OL ID", SearchAuthorID);
+        if Authors.IsEmpty then begin
             //  Initialize  request.
             LibraryGeneralAPISetup.GetRecordOnce();
             LibraryGeneralAPISetup.TestField("OL API Nos.");
@@ -24,22 +41,14 @@ codeunit 50251 "Open Library Authors API"
                 DisplayAPIFailureMessage(AATRESTHelper);
             end;
 
-            DisplayAPISuccessMessage(AATRESTHelper);
+            // DisplayAPISuccessMessage(AATRESTHelper);
 
             //  Get reponse as text.
             DeconstructPayload(AATRESTHelper.GetResponseContentAsText());
         end
-        else 
+
+        else
             exit;
-
-    end;
-
-    //  Check if author already exisit in Author table.
-    local procedure CheckAuthorExisit(): Boolean
-    var
-        Authors: Record Authors;
-    begin
-        
 
     end;
 
@@ -53,19 +62,21 @@ codeunit 50251 "Open Library Authors API"
 
     begin
         AATJSONHelper.InitializeJsonObjectFromText(Payload);
-        AuthorArray := AATJSONHelper.SelectJsonToken('$').AsArray();
+        GetAuthorDetails(AATJSONHelper);
 
-        // Check if Author array is not empty.
-        if AuthorArray.Count() = 0 then begin
-            Message('No author with id: %1 , was found.');
-            exit;
-        end;
+        // AuthorArray := AATJSONHelper.SelectJsonToken('$').AsArray();
 
-        foreach AuthorToken in AuthorArray do begin
-            AATJSONHelperAuthor.InitializeJsonObjectFromToken(AuthorToken);
+        // // Check if Author array is not empty.
+        // if AuthorArray.Count() = 0 then begin
+        //     Message('No author with id: %1 , was found.');
+        //     exit;
+        // end;
 
-            GetAuthorDetails(AATJSONHelperAuthor);
-        end;
+        // foreach AuthorToken in AuthorArray do begin
+        //     AATJSONHelperAuthor.InitializeJsonObjectFromToken(AuthorToken);
+
+        //     GetAuthorDetails(AATJSONHelperAuthor);
+        // end;
 
     end;
 
@@ -73,19 +84,22 @@ codeunit 50251 "Open Library Authors API"
     local procedure GetAuthorDetails(var AATJSONHelper: Codeunit "AAT JSON Helper")
     var
         Authors: Record Authors;
+        AuthBio: Text[250];
     begin
-        
-        
-            //  Save Author details retrieved from Open Library API in to "Author" table.
-            Authors.Init();
-                // author add nos
-            Authors."Author OL ID" := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.key', false), StrPos(AATJSONHelper.SelectJsonValueAsText('$.key', false), '/authors/') + 10);
-            Authors."Author name" := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.name', false), 1, MaxStrLen(Authors."Author name"));
-            Authors."Personal name" := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.personal_name', false), 1, MaxStrLen(Authors."Personal name"));
-            Authors.Bio := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.bio', false), 1, MaxStrLen(Authors.Bio));
-            Authors."Birth Date" := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.birth_date', false), 1, MaxStrLen(Authors."Birth Date"));
-            Authors.Insert();
- 
+
+
+        //  Save Author details retrieved from Open Library API in to "Author" table.
+        Authors.Init();
+        Authors.AddNewNos();
+        Authors."Author OL ID" := (CopyStr(AATJSONHelper.SelectJsonValueAsText('$.key', false), StrPos(AATJSONHelper.SelectJsonValueAsText('$.key', false), '/authors/') + 9));
+        // TmpLibraryBooks."Author OL ID" := CopyStr(RetrieveToken.AsValue().AsText(), 1, MaxStrLen(TmpLibraryBooks."Author OL ID"));
+
+        Authors."Author name" := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.name', false), 1, MaxStrLen(Authors."Author name"));
+        Authors."Personal name" := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.personal_name', false), 1, MaxStrLen(Authors."Personal name"));
+        Authors.Bio := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.bio', false), 1, MaxStrLen(Authors.Bio));
+        Authors."Birth Date" := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.birth_date', false), 1, MaxStrLen(Authors."Birth Date"));
+        Authors.Insert();
+
 
     end;
 

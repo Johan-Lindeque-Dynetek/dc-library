@@ -5,7 +5,7 @@ page 50107 "Authors"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = Authors;
-    
+     
     layout
     {
         area(Content)
@@ -14,6 +14,10 @@ page 50107 "Authors"
             {
                 repeater("Authors List")
                 {
+                    field("Author ID"; Rec."Author ID")
+                    {
+                        ToolTip = 'Specifies the value of the Author OL ID field.';
+                    }
                     
                     field("Author OL ID"; Rec."Author OL ID")
                     {

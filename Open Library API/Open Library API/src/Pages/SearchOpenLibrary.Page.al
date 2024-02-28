@@ -142,6 +142,8 @@ page 50250 "Search Open Library"
                             OpenLibraryAPIBooks.AddSelectedToLibrary(Rec);
                         until Rec.Next() = 0;
 
+                     Message('Selected book(s) has been added to Library.');
+
                     // repeat
                     //     SelectedBooks += Rec.Title + ', ';
                     // until Rec.Next() = 0;

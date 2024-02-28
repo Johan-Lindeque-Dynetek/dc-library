@@ -181,6 +181,7 @@ codeunit 50250 "Open Library Books API"
     procedure AddSelectedToLibrary(TempLibraryBooks: Record "Library Books" temporary)
     var
         LibraryBooks: Record "Library Books";
+        OpenLibraryAuthorsAPI: Codeunit "Open Library Authors API";
     begin
         // if TempLibraryBooks.FindSet() then
             repeat
@@ -199,9 +200,10 @@ codeunit 50250 "Open Library Books API"
                 LibraryBooks."Rented Amount" := 0;
                 LibraryBooks.Insert();
 
-
+                OpenLibraryAuthorsAPI.CheckAuthorDetails(TempLibraryBooks."Author OL ID");
             until TempLibraryBooks.Next() = 0;
-            Message('Selected book(s) has been added to Library.');
+           
+
 
     end;
 

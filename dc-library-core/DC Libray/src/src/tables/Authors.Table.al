@@ -6,13 +6,13 @@ table 50103 "Authors"
     {
         field(1; "Author ID"; code[20])
         {
-            Caption = 'Author OL ID';
+            Caption = 'Author ID';
             DataClassification = ToBeClassified;
         }
         field(2; "Author OL ID"; Text[15])
         {
             Caption = 'Author OL ID';
-            DataClassification = ToBeClassified;
+            DataClassification = CustomerContent;
         }
         field(3; "Birth Date"; Text[30])
         {
