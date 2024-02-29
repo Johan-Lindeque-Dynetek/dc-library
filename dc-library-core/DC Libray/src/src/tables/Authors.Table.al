@@ -1,6 +1,6 @@
 table 50103 "Authors"
 {
-    DataClassification = ToBeClassified;
+    DataClassification = CustomerContent;
 
     fields
     {
@@ -50,8 +50,18 @@ table 50103 "Authors"
             Editable = false;
             TableRelation = "No. Series";
         }
-
-
+        field(10; "Current Age"; Integer)
+        {
+            Caption = 'Current Age';
+            DataClassification = ToBeClassified;
+        }
+        field(999; "Photograph"; Media)
+        {
+            Caption = 'Photograph';
+            DataClassification = ToBeClassified;
+        }
+       
+        
 
     }
 

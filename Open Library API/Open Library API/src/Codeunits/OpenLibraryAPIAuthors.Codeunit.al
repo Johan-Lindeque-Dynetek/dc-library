@@ -64,20 +64,7 @@ codeunit 50251 "Open Library Authors API"
         AATJSONHelper.InitializeJsonObjectFromText(Payload);
         GetAuthorDetails(AATJSONHelper);
 
-        // AuthorArray := AATJSONHelper.SelectJsonToken('$').AsArray();
-
-        // // Check if Author array is not empty.
-        // if AuthorArray.Count() = 0 then begin
-        //     Message('No author with id: %1 , was found.');
-        //     exit;
-        // end;
-
-        // foreach AuthorToken in AuthorArray do begin
-        //     AATJSONHelperAuthor.InitializeJsonObjectFromToken(AuthorToken);
-
-        //     GetAuthorDetails(AATJSONHelperAuthor);
-        // end;
-
+       
     end;
 
     //  Check if Author retrieved from Open Library API already exist or not in "Author" table.

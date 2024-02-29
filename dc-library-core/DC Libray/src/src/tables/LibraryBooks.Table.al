@@ -120,6 +120,32 @@ table 50100 "Library Books"
             Caption = 'Description';
             DataClassification = ToBeClassified;
         }
+        field(19; "Latest Revision"; Blob)
+        {
+            Caption = 'Latest Revision';
+            DataClassification = ToBeClassified;
+        }
+        field(20; "Subject Places"; Text[250])
+        {
+            Caption = 'Subject Places';
+            DataClassification = ToBeClassified;
+        }
+        field(21; "Subjects"; Text[250])
+        {
+            Caption = 'Subjects';
+            DataClassification = ToBeClassified;
+        }
+        field(22; "Subject People"; Text[250])
+        {
+            Caption = 'Subject People';
+            DataClassification = ToBeClassified;
+        }
+        field(999; "Cover"; Media)
+        {
+            Caption = 'Cover';
+            DataClassification = ToBeClassified;
+        }
+        
         
 
     }
