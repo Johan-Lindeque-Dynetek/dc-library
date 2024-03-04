@@ -1,7 +1,7 @@
 codeunit 50250 "Open Library Books API"
 {
     Description = 'Get the Books from Open Library API and populate "Library Books" table.';
-   
+
     procedure SearchISBN(var TmpLibraryBooks: Record "Library Books"; SearchISBN: Text[13])
     var
         LibraryGeneralAPISetup: Record "Library General API Setup";
@@ -23,6 +23,11 @@ codeunit 50250 "Open Library Books API"
 
         DisplayAPISuccessMessage(AATRESTHelper);
         //  Initialize the JSON object from the response content.
+
+        //json helper
+        // DeconstructPayload(TmpLibraryBooks, AATRESTHelper.GetResponseContentAsText());
+
+        // old way
         CreateTempBook(TmpLibraryBooks, AATRESTHelper);
 
     end;
@@ -54,38 +59,83 @@ codeunit 50250 "Open Library Books API"
 
     end;
 
-
-    // Display a detailed message when request Failed.
-    local procedure DisplayAPIFailureMessage(var AATRestHelper: Codeunit "AAT REST Helper")
+    // destruct payload
+    local procedure DeconstructPayload(var TmpLibraryBooks: Record "Library Books"; Payload: Text)
     var
-        ErrorBreakDownLbl: Label 'ERROR       Code: %1\Message: %2\Reason: %3', Comment = '%1=Error Code, %2 = Err Message %3 = Err. Reason';
+        AATJSONHelper: Codeunit "AAT JSON Helper";
+
     begin
-        message(
-         StrSubstNo(
-         ErrorBreakDownLbl,
-         AATRestHelper.GetHttpStatusCode(),
-         AATRestHelper.GetResponseContentAsText(),
-         AATRestHelper.GetResponseReasonPhrase()
-         )
-        );
+        AATJSONHelper.InitializeJsonOArrayFromText(Payload);
+        GetBookDetails(TmpLibraryBooks, AATJSONHelper);
     end;
 
-    // Display a detailed message when request is a Success.
-    local procedure DisplayAPISuccessMessage(var AATRestHelper: Codeunit "AAT REST Helper")
+    // get book details
+    local procedure GetBookDetails(var TmpLibraryBooks: Record "Library Books"; var AATJSONHelper: Codeunit "AAT JSON Helper")
     var
-        ErrorBreakDownLbl: Label 'SUCCESS       Code: %1\Message: %2\Reason: %3', Comment = '%1=Error Code, %2 = Err Message %3 = Err. Reason';
+        BooksArray: JsonArray;
+        BookToken: JsonToken;
+        BookInfo: Text[250];
+        PublishDateArray: JsonArray;
+        PublishDate : Date;
     begin
-        message(
-         StrSubstNo(
-         ErrorBreakDownLbl,
-         AATRestHelper.GetHttpStatusCode(),
-         AATRestHelper.GetResponseContentAsText(),
-         AATRestHelper.GetResponseReasonPhrase()
-         )
-        );
+        TmpLibraryBooks.Init();
+        // TmpLibraryBooks.AddTempNewNos();
+        // Get book OL id.
+        TmpLibraryBooks."OL ID" := (CopyStr(AATJSONHelper.SelectJsonValueAsText('$.key', false), StrPos(AATJSONHelper.SelectJsonValueAsText('$.key', false), '/works') + 7));
+        // Get book title.
+        TmpLibraryBooks.Title := CopyStr(AATJSONHelper.SelectJsonValueAsText('$.title', false), 1, MaxStrLen(TmpLibraryBooks.Title));
+
+        // Get book author & author OL id.
+        /// name
+        BooksArray := AATJSONHelper.SelectJsonToken('$.author_name').AsArray();
+        foreach BookToken in BooksArray do begin
+            BookInfo := CopyStr(BookToken.AsValue().AsText(), 1, MaxStrLen(BookInfo));
+            break;
+        end;
+        TmpLibraryBooks.Author := CopyStr(BookInfo, 1, MaxStrLen(TmpLibraryBooks.Author));
+        /// OL id 
+        BooksArray := AATJSONHelper.SelectJsonToken('$.author_key').AsArray();
+        foreach BookToken in BooksArray do begin
+            BookInfo := CopyStr(BookToken.AsValue().AsText(), 1, MaxStrLen(BookInfo));
+            break;
+        end;
+        TmpLibraryBooks."Author OL ID" := CopyStr(BookInfo, 1, MaxStrLen(TmpLibraryBooks."Author OL ID"));
+
+        // Set rent status.
+        TmpLibraryBooks."Rent Status" := 'Available';
+        // pages
+        TmpLibraryBooks.Pages := AATJSONHelper.SelectJsonValueAsInteger('$.number_of_pages_median', false);
+        // ISBN
+        BooksArray := AATJSONHelper.SelectJsonToken('$.isbn').AsArray();
+        foreach BookToken in BooksArray do begin
+            BookInfo := CopyStr(BookToken.AsValue().AsText(), 1, MaxStrLen(BookInfo));
+            break;
+        end;
+        TmpLibraryBooks.ISBN := CopyStr(BookInfo, 1, MaxStrLen(TmpLibraryBooks.ISBN));
+        // Publisher
+        BooksArray := AATJSONHelper.SelectJsonToken('$.publisher').AsArray();
+        foreach BookToken in BooksArray do begin
+            BookInfo := CopyStr(BookToken.AsValue().AsText(), 1, MaxStrLen(BookInfo));
+            break;
+        end;
+        TmpLibraryBooks.Publisher := CopyStr(BookInfo, 1, MaxStrLen(TmpLibraryBooks.Publisher));
+        // Publish date
+        PublishDateArray := AATJSONHelper.SelectJsonToken('$.publisher').AsArray();
+        foreach BookToken in PublishDateArray do begin
+            PublishDate := BookToken.AsValue().AsDate();
+            break;
+        end;
+        TmpLibraryBooks."Publication Date" := PublishDate;
+
+
+
+
+
+        TmpLibraryBooks.Insert();
+
     end;
 
-//  Create a temperory record of books retrieved from Open Library API.
+    //  Create a temperory record of books retrieved from Open Library API.
     local procedure CreateTempBook(var TmpLibraryBooks: Record "Library Books"; var AATRESTHelper: Codeunit "AAT REST Helper")
     var
         AATJSONHelper: Codeunit "AAT JSON Helper";
@@ -183,28 +233,61 @@ codeunit 50250 "Open Library Books API"
         LibraryBooks: Record "Library Books";
         OpenLibraryAuthorsAPI: Codeunit "Open Library Authors API";
     begin
-        // if TempLibraryBooks.FindSet() then
-            repeat
-                LibraryBooks.Init();
-                librarybooks.AddNewNos();
-                LibraryBooks.Title := TempLibraryBooks.Title;
-                LibraryBooks."OL ID" := TempLibraryBooks."OL ID";
-                LibraryBooks.Author := TempLibraryBooks.Author;
-                LibraryBooks."Author OL ID" := TempLibraryBooks."Author OL ID";
-                LibraryBooks.ISBN := TempLibraryBooks.ISBN;
-                LibraryBooks."OL ID" := TempLibraryBooks."OL ID";
-                LibraryBooks.Pages := TempLibraryBooks.Pages;
-                LibraryBooks."Publication Date" := TempLibraryBooks."Publication Date";
-                LibraryBooks.Publisher := TempLibraryBooks.Publisher;
-                LibraryBooks."Rent Status" := TempLibraryBooks."Rent Status";
-                LibraryBooks."Rented Amount" := 0;
-                LibraryBooks.Insert();
 
-                OpenLibraryAuthorsAPI.CheckAuthorDetails(TempLibraryBooks."Author OL ID");
-            until TempLibraryBooks.Next() = 0;
-           
+        repeat
+        //  transfer fields
+            LibraryBooks.Init();
+            librarybooks.AddNewNos();
+            LibraryBooks.Title := TempLibraryBooks.Title;
+            LibraryBooks."OL ID" := TempLibraryBooks."OL ID";
+            LibraryBooks.Author := TempLibraryBooks.Author;
+            LibraryBooks."Author OL ID" := TempLibraryBooks."Author OL ID";
+            LibraryBooks.ISBN := TempLibraryBooks.ISBN;
+            LibraryBooks."OL ID" := TempLibraryBooks."OL ID";
+            LibraryBooks.Pages := TempLibraryBooks.Pages;
+            LibraryBooks."Publication Date" := TempLibraryBooks."Publication Date";
+            LibraryBooks.Publisher := TempLibraryBooks.Publisher;
+            LibraryBooks."Rent Status" := TempLibraryBooks."Rent Status";
+            LibraryBooks."Rented Amount" := 0;
+            LibraryBooks.Insert();
+
+            OpenLibraryAuthorsAPI.CheckAuthorDetails(TempLibraryBooks."Author OL ID");
+        until TempLibraryBooks.Next() = 0;
 
 
+
+    end;
+
+
+
+    // Display a detailed message when request Failed.
+    local procedure DisplayAPIFailureMessage(var AATRestHelper: Codeunit "AAT REST Helper")
+    var
+        ErrorBreakDownLbl: Label 'ERROR       Code: %1\Message: %2\Reason: %3', Comment = '%1=Error Code, %2 = Err Message %3 = Err. Reason';
+    begin
+        message(
+         StrSubstNo(
+         ErrorBreakDownLbl,
+         AATRestHelper.GetHttpStatusCode(),
+         AATRestHelper.GetResponseContentAsText(),
+         AATRestHelper.GetResponseReasonPhrase()
+         )
+        );
+    end;
+
+    // Display a detailed message when request is a Success.
+    local procedure DisplayAPISuccessMessage(var AATRestHelper: Codeunit "AAT REST Helper")
+    var
+        ErrorBreakDownLbl: Label 'SUCCESS       Code: %1\Message: %2\Reason: %3', Comment = '%1=Error Code, %2 = Err Message %3 = Err. Reason';
+    begin
+        message(
+         StrSubstNo(
+         ErrorBreakDownLbl,
+         AATRestHelper.GetHttpStatusCode(),
+         AATRestHelper.GetResponseContentAsText(),
+         AATRestHelper.GetResponseReasonPhrase()
+         )
+        );
     end;
 
 }

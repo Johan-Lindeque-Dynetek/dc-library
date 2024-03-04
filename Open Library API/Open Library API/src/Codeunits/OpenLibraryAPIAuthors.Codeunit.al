@@ -10,9 +10,9 @@ codeunit 50251 "Open Library Authors API"
         Authors.SetFilter("Author OL ID", SearchAuthorID);
         if Authors.FindFirst() then
             exit
-        else 
+        else
             GetAuthorPayload(SearchAuthorID);
-       
+
 
     end;
 
@@ -55,16 +55,11 @@ codeunit 50251 "Open Library Authors API"
     local procedure DeconstructPayload(Payload: Text)
     var
         AATJSONHelper: Codeunit "AAT JSON Helper";
-        AATJSONHelperAuthor: Codeunit "AAT JSON Helper";
-
-        AuthorArray: JsonArray;
-        AuthorToken: JsonToken;
-
     begin
         AATJSONHelper.InitializeJsonObjectFromText(Payload);
         GetAuthorDetails(AATJSONHelper);
 
-       
+
     end;
 
     //  Check if Author retrieved from Open Library API already exist or not in "Author" table.
