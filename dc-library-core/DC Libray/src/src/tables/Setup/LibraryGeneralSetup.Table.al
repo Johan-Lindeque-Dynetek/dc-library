@@ -31,6 +31,12 @@ table 50102 "Library General Setup"
             Caption = 'Authors Nos.';
             TableRelation = "No. Series";
         }
+        field(6; "Open Library Nos."; Code[20])
+        {
+            Caption = 'Open Library Result Nos.';
+            TableRelation = "No. Series";
+        }
+
         
         
 

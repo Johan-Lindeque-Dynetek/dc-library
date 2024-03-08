@@ -31,6 +31,11 @@ page 50105 "Library General Setup"
                     ApplicationArea = All;
                     ToolTip = 'Specifies the value of the Authors Nos. field.';
                 }
+                field("Open Library Nos."; Rec."Open Library Nos.")
+                {
+                    ApplicationArea = All;
+                    ToolTip = 'Specifies the value of the Open Library Result Nos. field.';
+                }
                 
 
             }

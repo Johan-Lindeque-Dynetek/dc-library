@@ -177,6 +177,18 @@ table 50100 "Library Books"
         Rec.BookID := NoSeriesMgt.GetNextNo(LibraryGeneralSetup."Library Books Nos.", WorkDate(), true);
     end;
 
+    // Add Nos. for Search Open Library temp table.
+    procedure AddResultBooksNos(LibraryBooks: Record "Library Books")
+    var
+        LibraryGeneralSetup: Record "Library General Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+    begin
+
+        LibraryGeneralSetup.GetRecordOnce();
+        LibraryGeneralSetup.TestField("Open Library Nos.");
+        LibraryBooks.BookID := NoSeriesMgt.GetNextNo(LibraryGeneralSetup."Open Library Nos.", WorkDate(), true);
+    end;
+
     // Procedure to update a books "Rent Status" depending on if it was rent/returned.
     procedure UpdateBookStatus(BookID: Code[20]; NewStatus: Text[20])
     var

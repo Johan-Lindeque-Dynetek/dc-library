@@ -223,10 +223,16 @@ codeunit 50250 "Open Library Books API"
                 if Evaluate(PublishDate, PublishDateText) then
                     TmpLibraryBooks."Publication Date" := PublishDate;
             end;
+            
+            // Get book cover id.
+            if BookObject.Get('"cover_edition_key', RetrieveToken) then
+                TmpLibraryBooks."OL ID" := CopyStr(CopyStr(RetrieveToken.AsValue().AsText(), 1, MaxStrLen(TmpLibraryBooks.Title)), 1, MaxStrLen(TmpLibraryBooks."OL ID"));
+
+
 
             TmpLibraryBooks.Insert();
         end;
-    end;
+    end;    // test openlibrary.org/search.json?isbn=9780349436999
 
     procedure AddSelectedToLibrary(TempLibraryBooks: Record "Library Books" temporary)
     var
@@ -256,6 +262,11 @@ codeunit 50250 "Open Library Books API"
 
 
 
+    end;
+
+    local procedure GetBookCover(LibraryBooks: Record "Library Books")
+    begin
+        
     end;
 
 
